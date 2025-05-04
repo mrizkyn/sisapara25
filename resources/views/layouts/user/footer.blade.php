@@ -1,0 +1,64 @@
+<footer class="bg-light text-dark pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+            <!-- Logo dan Deskripsi -->
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold">🏟️ SISPARA</h5>
+                <p class="text-muted">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam necessitatibus, vel autem et illum
+                    minima
+                    laboriosam sunt ut! Ea, nemo.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="mailto:dispora@example.go.id" class="text-dark fs-5"><i class="bi bi-envelope"></i></a>
+                    <a href="https://dispora.go.id" class="text-dark fs-5"><i class="bi bi-globe"></i></a>
+                    <a href="https://instagram.com/dispora" class="text-dark fs-5"><i class="bi bi-instagram"></i></a>
+                    <a href="https://youtube.com/dispora" class="text-dark fs-5"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Menu Navigasi -->
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold">Navigasi</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#beranda" class="text-muted text-decoration-none">Beranda</a></li>
+                    <li><a href="#informasi" class="text-muted text-decoration-none">Informasi</a></li>
+                    <li><a href="#reservasi" class="text-muted text-decoration-none">Reservasi</a></li>
+                    <li><a href="#faq" class="text-muted text-decoration-none">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Layanan -->
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold">Layanan</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-muted text-decoration-none">Data Sarana</a></li>
+                    <li><a href="#" class="text-muted text-decoration-none">Data Prasarana</a></li>
+                    <li><a href="#" class="text-muted text-decoration-none">Permintaan Jadwal</a></li>
+                    <li><a href="#" class="text-muted text-decoration-none">Riwayat Reservasi</a></li>
+                </ul>
+            </div>
+
+            <!-- Kontak -->
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold">Kontak</h6>
+                <ul class="list-unstyled text-muted">
+                    <li>Jl. </li>
+                    <li>Telp: </li>
+                    <li>Email: </li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Bottom Footer -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <p class="mb-0 text-muted">© 2025 SISPARA - DISPORA. Semua hak dilindungi.</p>
+            <div>
+                <a href="#" class="text-muted text-decoration-none me-3">Kebijakan Privasi</a>
+                <a href="#" class="text-muted text-decoration-none">Syarat & Ketentuan</a>
+            </div>
+        </div>
+    </div>
+</footer>
