@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="copyright" content="SISPARA">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title>SISPARA @yield('title', '| Home')</title>
 
@@ -28,6 +30,9 @@
     <!-- DataTables JS (Bootstrap 5) -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
 
 </head>
 

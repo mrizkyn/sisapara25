@@ -1,16 +1,15 @@
 @extends('layouts.panel.main')
 
 @section('main')
-
-
+    @include('admin.facilities.delete')
     <div class="container-fluid py-4">
-        <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Admin</h2>
+        <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Prasarana</h2>
 
         <div class="card  border-0">
             <div class="card-header text-white fw-semibold ">
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-black">Data Users</span>
-                    <a href="{{ route('superadmin.admin-management.create') }}" class="btn btn-sm btn-success shadow-sm" <i
+                    <span class="text-black">Data Prasarana</span>
+                    <a href="{{ route('admin.facilities.create') }}" class="btn btn-sm btn-success shadow-sm" <i
                         class="bi bi-plus-circle"></i> Tambah
                     </a>
                 </div>
@@ -24,8 +23,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nama</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>Tipe</th>
+                                <th>Pengelola</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -41,7 +40,7 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ route('superadmin.admin-management.index') }}',
+                ajax: '{{ route('admin.facilities.index') }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -51,12 +50,12 @@
                         name: 'name'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
+                        data: 'type',
+                        name: 'type'
                     },
                     {
-                        data: 'role',
-                        name: 'role'
+                        data: 'user_name',
+                        name: 'user_name'
                     },
                     {
                         data: 'action',

@@ -1,10 +1,10 @@
-<footer class="bg-light text-dark pt-5 pb-4">
-    <div class="container">
+<footer class="text-white pt-5 pb-4" style=" background-color: #016974">
+    <div class="container ">
         <div class="row">
             <!-- Logo dan Deskripsi -->
             <div class="col-md-4 mb-4">
                 <h5 class="fw-bold">🏟️ SISPARA</h5>
-                <p class="text-muted">
+                <p class="text-white">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam necessitatibus, vel autem et illum
                     minima
                     laboriosam sunt ut! Ea, nemo.
@@ -21,10 +21,10 @@
             <div class="col-md-2 mb-4">
                 <h6 class="fw-bold">Navigasi</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#beranda" class="text-muted text-decoration-none">Beranda</a></li>
-                    <li><a href="#informasi" class="text-muted text-decoration-none">Informasi</a></li>
-                    <li><a href="#reservasi" class="text-muted text-decoration-none">Reservasi</a></li>
-                    <li><a href="#faq" class="text-muted text-decoration-none">FAQ</a></li>
+                    <li><a href="#beranda" class="text-white text-decoration-none">Beranda</a></li>
+                    <li><a href="#informasi" class="text-white text-decoration-none">Informasi</a></li>
+                    <li><a href="#reservasi" class="text-white text-decoration-none">Reservasi</a></li>
+                    <li><a href="#faq" class="text-white text-decoration-none">FAQ</a></li>
                 </ul>
             </div>
 
@@ -32,17 +32,17 @@
             <div class="col-md-3 mb-4">
                 <h6 class="fw-bold">Layanan</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none">Data Sarana</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Data Prasarana</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Permintaan Jadwal</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Riwayat Reservasi</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Data Sarana</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Data Prasarana</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Permintaan Jadwal</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Riwayat Reservasi</a></li>
                 </ul>
             </div>
 
             <!-- Kontak -->
             <div class="col-md-3 mb-4">
                 <h6 class="fw-bold">Kontak</h6>
-                <ul class="list-unstyled text-muted">
+                <ul class="list-unstyled text-white">
                     <li>Jl. </li>
                     <li>Telp: </li>
                     <li>Email: </li>
@@ -54,10 +54,10 @@
 
         <!-- Bottom Footer -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <p class="mb-0 text-muted">© 2025 SISPARA - DISPORA. Semua hak dilindungi.</p>
+            <p class="mb-0 text-white">© 2025 SISPARA - DISPORA. Semua hak dilindungi.</p>
             <div>
-                <a href="#" class="text-muted text-decoration-none me-3">Kebijakan Privasi</a>
-                <a href="#" class="text-muted text-decoration-none">Syarat & Ketentuan</a>
+                <a href="#" class="text-white text-decoration-none me-3">Kebijakan Privasi</a>
+                <a href="#" class="text-white text-decoration-none">Syarat & Ketentuan</a>
             </div>
         </div>
     </div>

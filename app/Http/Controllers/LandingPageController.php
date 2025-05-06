@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
@@ -18,8 +19,15 @@ class LandingPageController extends Controller
 
     public function reservasi()
     {
-        return view('landing.reservasi');
+        $facilities = Facility::select(['id', 'name', 'thumbnail_image', 'capacity'])->get();
+        return view('landing.reservasi', compact('facilities'));
     }
+    public function reservasiShow()
+    {
+        $facilities = Facility::select(['id', 'description', 'image', 'capacity'])->get();
+        return view('landing.reservasi', compact('facilities'));
+    }
+
 
     public function faq()
     {

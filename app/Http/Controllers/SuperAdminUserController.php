@@ -9,7 +9,6 @@ use Yajra\DataTables\DataTables;
 
 class SuperAdminUserController extends Controller
 {
-
     public function index(Request $request)
     {
         if ($request->ajax()) {

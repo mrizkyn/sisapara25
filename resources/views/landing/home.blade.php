@@ -2,12 +2,11 @@
 @section('main-content')
     <section class="hero Patterns">
         <div class="hero-text">
-            <h1>SISAPARA</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At officia, veniam quibusdam asperiores repellendus
-                accusantium alias ad, illo facilis laudantium quas facere veritatis quae porro animi hic mollitia
-                voluptatibus
-                perferendis earum exercitationem quaerat dolorum molestias ab inventore? Ullam mollitia autem ea odit quam?
-                Rerum nemo repellendus quam numquam?
+            <h1>SISPARA</h1>
+            <p> Sistem Informasi Sarana dan Prasarana (SISPARA) adalah platform digital yang dirancang
+                untuk mempermudah pengelolaan fasilitas dan inventaris kampus secara efisien dan transparan.
+                Mulai dari peminjaman alat olahraga, ruang kelas, hingga pelaporan kerusakan—semua bisa dari genggaman.
+            </p>
             <div>
                 <button class="hero-btn"><i class="animation"></i>selengkapnya<i class="animation"></i>
                 </button>
@@ -17,47 +16,25 @@
             <div class="image-columns">
                 <div class="scroll-column scroll-up">
                     <div class="scroll-track">
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Image 1" /></div>
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                                alt=" Image 2" /></div>
-                        <div class="image-box"><img
-                                src="https://plus.unsplash.com/premium_photo-1666913667023-4bfd0f6cff0a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU3fHxzcG9ydHN8ZW58MHx8MHx8fDA%3D"
-                                alt="Image 3" /></div>
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Image 1" /></div>
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                                alt=" Image 2" /></div>
-                        <div class="image-box"><img
-                                src="https://plus.unsplash.com/premium_photo-1666913667023-4bfd0f6cff0a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU3fHxzcG9ydHN8ZW58MHx8MHx8fDA%3D"
-                                alt="Image 3" /></div>
-
+                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
+                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
+                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
+                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
                     </div>
                 </div>
                 <div class="scroll-column scroll-down">
                     <div class="scroll-track">
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Image 1" /></div>
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                                alt=" Image 2" /></div>
-                        <div class="image-box"><img
-                                src="https://plus.unsplash.com/premium_photo-1666913667023-4bfd0f6cff0a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU3fHxzcG9ydHN8ZW58MHx8MHx8fDA%3D"
-                                alt="Image 3" /></div>
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Image 1" /></div>
-                        <div class="image-box"><img
-                                src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                                alt=" Image 2" /></div>
-                        <div class="image-box"><img
-                                src="https://plus.unsplash.com/premium_photo-1666913667023-4bfd0f6cff0a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU3fHxzcG9ydHN8ZW58MHx8MHx8fDA%3D"
-                                alt="Image 3" /></div>
+                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
+                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
+                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
                     </div>
                 </div>
     </section>
@@ -68,23 +45,19 @@
             <div class="col-md-7 mb-4 mb-md-0">
                 <!-- Gambar Utama -->
                 <div class="rounded overflow-hidden shadow-sm mb-3">
-                    <img id="main-image"
-                        src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                        alt="Lapangan Tenis" class="img-fluid w-100 d-block" style="object-fit: cover; height: 63vh;">
+                    <img id="main-image" src="{{ asset('img/bet-tenis.jpg') }}" alt="Lapangan Tenis"
+                        class="img-fluid w-100 d-block" style="object-fit: cover; height: 63vh;">
                 </div>
 
-                <!-- Galeri kecil (ditampilkan hanya saat mobile) -->
                 <div class="d-flex overflow-auto gap-3 d-md-none">
                     <div class="flex-shrink-0" style="width: 120px; height: 100px;">
-                        <img id="image1-mobile"
-                            src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                            alt="Image 1" class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
+                        <img id="image1-mobile" src="{{ asset('img/bet-tenis.jpg') }}" alt="Image 1"
+                            class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
                             onclick="changeContent('image1')">
                     </div>
                     <div class="flex-shrink-0" style="width: 200px; height: 100px;">
-                        <img id="image2-mobile"
-                            src="https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Image 2" class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
+                        <img id="image2-mobile" src="{{ asset('img/basket.jpg') }}" alt="Image 2"
+                            class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
                             onclick="changeContent('image2')">
                     </div>
                 </div>
@@ -110,15 +83,13 @@
                 <!-- Galeri Desktop -->
                 <div class="d-flex overflow-auto gap-3 pt-2 d-none d-md-flex">
                     <div class="flex-shrink-0" style="width: 160px; height: 200px;">
-                        <img id="image1"
-                            src="https://images.unsplash.com/photo-1653015503992-347de54a8125?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDgwfHx8ZW58MHx8fHx8"
-                            alt="Image 1" class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
+                        <img id="image1" src="{{ asset('img/bet-tenis.jpg') }}" alt="Image 1"
+                            class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
                             onclick="changeContent('image1')">
                     </div>
                     <div class="flex-shrink-0" style="width: 320px; height: 200px;">
-                        <img id="image2"
-                            src="https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Image 2" class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
+                        <img id="image2" src="{{ asset('img/basket.jpg') }}" alt="Image 2"
+                            class="img-fluid rounded object-fit-cover w-100 h-100 shadow-sm"
                             onclick="changeContent('image2')">
                     </div>
                 </div>
@@ -140,6 +111,7 @@
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis modi dicta fugiat error, provident porro odit alias quisquam reiciendis? Cumque natus autem, tempora et velit optio provident repellat eos maiores. Dignissimos error eaque voluptatem!";
             } else if (imageId === 'image2') {
                 mainImage.src = document.getElementById('image2').src;
+                Z
                 mainHeading.innerHTML =
                     "Goports – Innovating Your Sports Experience with <span class='text-danger'>Growth</span>, <span class='text-primary'>Tech</span>, and <span class='text-secondary'>Excellence</span> for a Smarter Future.";
                 mainText.innerHTML =

@@ -318,6 +318,68 @@ body {
     margin-left: 80px;
 }
 
+
+
+
+/* DataTabels Cusstom */
+#users-table th,
+#users-table thead {
+    background-color: teal !important;
+    color: white !important;
+}
+
+.pagination .page-link {
+    color: teal !important;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    text-decoration: none !important;
+}
+
+.pagination .page-link:hover {
+    background-color: #007f6c !important;
+    color: white !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #006c57 !important;
+    color: white !important;
+    border-color: #006c57 !important;
+}
+
+@media (max-width: 768px) {
+    .row {
+        gap: 5px;
+        flex-wrap: wrap-reverse;
+        margin: 0;
+        padding: 0;
+    }
+
+    select {
+        margin-left: 20px;
+        padding: 5px 0;
+    }
+
+    .dataTables_length,
+    .dataTables_filter {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #users-table_filter input {
+        width: 95%;
+    }
+
+    .dataTables_length label {
+        padding-left: 12px;
+    }
+
+    .previous {
+        padding-left: 100px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     #sidebarOpen {
         font-size: 25px;

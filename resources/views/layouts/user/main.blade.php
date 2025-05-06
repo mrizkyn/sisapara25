@@ -21,9 +21,9 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-white">
     @include('layouts.user.header')
-    <div style="min-height: 100vh">
+    <div>
 
         @yield('main-content')
     </div>

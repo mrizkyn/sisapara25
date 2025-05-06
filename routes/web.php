@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminFacilityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SuperAdminUserController;
+use App\Http\Controllers\UserReservationController;
 
 Route::get('/', [LandingPageController::class, 'home'])->name('home');
 Route::get('/reservasi', [LandingPageController::class, 'reservasi'])->name('reservasi');
@@ -44,9 +46,22 @@ Route::middleware('superAdmin')->prefix('superadmin')->name('superadmin.')->grou
 // Route untuk Admin
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
+
+    Route::get('facilities', [AdminFacilityController::class, 'index'])->name('facilities.index');
+    Route::get('facilities/create', [AdminFacilityController::class, 'create'])->name('facilities.create');
+    Route::post('facilities', [AdminFacilityController::class, 'store'])->name('facilities.store');
+    Route::get('facilities/{id}/edit', [AdminFacilityController::class, 'edit'])->name('facilities.edit');
+    Route::put('facilities/{id}', [AdminFacilityController::class, 'update'])->name('facilities.update');
+    Route::get('facilities/{id}', [AdminFacilityController::class, 'show'])->name('facilities.show');
+    Route::delete('facilities/{id}', [AdminFacilityController::class, 'destroy'])->name('facilities.destroy');
 });
 
 // Route untuk User
 Route::middleware('user')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
+    
+    Route::get('reservasi/create', [UserReservationController::class, 'create'])->name('reservasi.create');
+    Route::post('reservasi', [UserReservationController::class, 'store'])->name('reservasi.store');
+    Route::get('reservasi/history', [UserReservationController::class, 'history'])->name('reservasi.history');
+    Route::get('reservasi/{id}', [UserReservationController::class, 'show'])->name('reservasi.show');
 });
