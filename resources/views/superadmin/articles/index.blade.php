@@ -1,14 +1,15 @@
 @extends('layouts.panel.main')
 
 @section('main')
+    @include('superadmin.articles.delete')
     <div class="container-fluid py-4">
-        <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Admin</h2>
+        <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Artikel</h2>
 
         <div class="card  border-0">
             <div class="card-header text-white fw-semibold ">
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-black">Data Users</span>
-                    <a href="{{ route('superadmin.admin-management.create') }}" class="btn btn-sm btn-success shadow-sm" <i
+                    <span class="text-black">Data Artikel</span>
+                    <a href="{{ route('superadmin.articles.create') }}" class="btn btn-sm btn-success shadow-sm" <i
                         class="bi bi-plus-circle"></i> Tambah
                     </a>
                 </div>
@@ -16,14 +17,14 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="users-table"
+                    <table id="super-admin-table"
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>Judul</th>
+                                <th>Penulis</th>
+                                <th>Tanggal Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -32,35 +33,37 @@
             </div>
         </div>
     </div>
+    {{-- DataTables Init --}}
     @push('script')
         <script>
             $(document).ready(function() {
-                $('#users-table').DataTable({
+                $('#super-admin-table').DataTable({
                     processing: true,
                     serverSide: true,
                     responsive: true,
-                    ajax: '{{ route('superadmin.admin-management.index') }}',
+                    ajax: '{{ route('superadmin.articles.index') }}',
                     columns: [{
-                            data: 'id',
-                            name: 'id'
+                            data: 'no',
+                            name: 'no',
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'title',
+                            name: 'title'
                         },
                         {
-                            data: 'email',
-                            name: 'email'
+                            data: 'user_name',
+                            name: 'user_name'
                         },
                         {
-                            data: 'role',
-                            name: 'role'
+                            data: 'created_at',
+                            name: 'created_at'
                         },
                         {
                             data: 'action',
                             name: 'action',
                             orderable: false,
-                            searchable: false
+                            searchable: false,
+
                         }
                     ]
                 });

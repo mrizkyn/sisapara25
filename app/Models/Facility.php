@@ -13,7 +13,6 @@ class Facility extends Model
         'type',
         'capacity',
         'image',
-        'thumbnail_image',
         'user_id',
 
     ];

@@ -16,9 +16,12 @@ class Reservation extends Model
         'status',
         'approved_by',
         'final_approved_by',
-        'letter_image',
+        'image',
     ];
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     // Relasi ke Facility yang dipinjam
     public function facility()
     {

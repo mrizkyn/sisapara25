@@ -1,6 +1,6 @@
 <style>
     :root {
-        --main-color: #40b3a2;
+        --main-color: #016974;
         --white-color: #F4F4F2;
         --black-color: #000000;
     }
@@ -149,6 +149,34 @@
         }
     }
 
+    .logout-btn {
+        background-color: #FF4B5C;
+        color: white;
+        padding: 5px 15px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .logout-btn i {
+        margin-right: 8px;
+    }
+
+    .logout-btn:hover {
+        background-color: #ffffff;
+        color: #FF4B5C;
+        border: 1px solid #FF4B5C
+    }
+
+    .logout-btn:focus {
+        outline: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
     @media (max-width: 768px) {
         .cusstom-nav-links {
             position: fixed;
@@ -254,7 +282,8 @@
             left: 0;
             width: 100%;
             display: none;
-            background-color: var(--white-color);
+            background-color: #FFFFFF;
+            color: #333;
             padding: 0;
             border-radius: 0;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
@@ -272,7 +301,52 @@
             font-size: 18px;
         }
     }
+
+
+
+    @media (min-width: 769px) {
+        .cusstom-nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: max-content;
+            min-width: 200px;
+            background-color: var(--white-color);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            z-index: 10;
+            padding: 8px 0;
+        }
+
+        .dropdown-menu li {
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu li:hover {
+            background-color: #f4f4f4;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    }
+
+    /* Dropdown Menu - Mobile */
 </style>
+
 <div class="cusstom-navbar">
     <a href="#" class="logo">
         <img src="logo.png" alt="Logo" class="logo-img">
@@ -291,22 +365,38 @@
                 </a>
             @else
                 <!-- Menampilkan dropdown saat sudah login -->
-                <div class="dropdown">
-                    <button class="cusstom-nav-btn dropdown-toggle">
+                @can('user')
+                    <div class="dropdown">
+                        <button class="cusstom-nav-btn dropdown-toggle">
+                            <i class="animation"></i>
+                            {{ Auth::user()->name }}
+                            <i class="animation"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="logout-btn"><i class='bx bx-log-out'></i>Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endcan
+                @can('admin')
+                    <a href="{{ route('admin.dashboard') }}" class="cusstom-nav-btn">
                         <i class="animation"></i>
-                        {{ Auth::user()->name }}
+                        Dahboard
                         <i class="animation"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="logout-btn"><i class='bx bx-log-out'></i>Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                    </a>
+                @endcan
+                @can('superadmin')
+                    <a href="{{ route('superadmin.dashboard') }}" class="cusstom-nav-btn">
+                        <i class="animation"></i>
+                        Dahboard
+                        <i class="animation"></i>
+                    </a>
+                @endcan
             @endguest
         </li>
 
@@ -335,20 +425,37 @@
         @else
             <!-- Menampilkan dropdown saat sudah login -->
             <div class="dropdown login-desktop">
-                <button class="cusstom-nav-btn dropdown-toggle">
-                    <i class="animation"></i>
-                    {{ Auth::user()->name }}
-                    <i class="animation"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="logout-btn"><i class='bx bx-log-out'></i>Logout</button>
-                        </form>
-                    </li>
-                </ul>
+                @can('user')
+                    <button class="cusstom-nav-btn dropdown-toggle">
+                        <i class="animation"></i>
+                        {{ Auth::user()->name }}
+                        <i class="animation"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('user.reservasi.index') }}">Reservasi</a></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="logout-btn"><i class='bx bx-log-out'></i>Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                @endcan
+                @can('admin')
+                    <a href="{{ route('admin.dashboard') }}" class="login-desktop cusstom-nav-btn">
+                        <i class="animation"></i>
+                        Dashboard
+                        <i class="animation"></i>
+                    </a>
+                @endcan
+                @can('superadmin')
+                    <a href="{{ route('superadmin.dashboard') }}" class="login-desktop cusstom-nav-btn">
+                        <i class="animation"></i>
+                        Dashboard
+                        <i class="animation"></i>
+                    </a>
+                @endcan
             </div>
         @endguest
 
@@ -356,13 +463,17 @@
         <button class="menu-close" id="menu-close" aria-label="Tutup menu">X</button>
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const dropdown = document.querySelector('.dropdown');
 
-        dropdownToggle.addEventListener('click', function() {
-            dropdown.classList.toggle('active');
-        });
+        if (dropdownToggle) {
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            });
+        }
     });
 </script>

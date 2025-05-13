@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Facility;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Reservation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,9 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(25)->create();
-        $this->call(UserSeeder::class);
-        $this->call(FacilitySeeder::class);
-
+        $this->call([
+            UserSeeder::class,
+            FacilitySeeder::class,
+            ArticleSeeder::class,
+            ReservationSeeder::class
+        ]);
 
         // User::factory()->create([
         //     'name' => 'Test User',

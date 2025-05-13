@@ -2,12 +2,12 @@
 
 @section('main')
     <div class="container-fluid py-4">
-        <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Admin</h2>
+        <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Reservasi</h2>
 
         <div class="card  border-0">
             <div class="card-header text-white fw-semibold ">
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-black">Data Users</span>
+                    <span class="text-black">Data Pengajuan Reservasi</span>
                     <a href="{{ route('superadmin.admin-management.create') }}" class="btn btn-sm btn-success shadow-sm" <i
                         class="bi bi-plus-circle"></i> Tambah
                     </a>
@@ -20,11 +20,12 @@
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Aksi</th>
+                                <th>User</th>
+                                <th>Fasilitas</th>
+                                <th>Waktu Mulai</th>
+                                <th>Waktu Selesai</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -39,29 +40,35 @@
                     processing: true,
                     serverSide: true,
                     responsive: true,
-                    ajax: '{{ route('superadmin.admin-management.index') }}',
+                    ajax: '{{ route('superadmin.reservasi.index') }}',
                     columns: [{
-                            data: 'id',
-                            name: 'id'
+                            data: 'user_name',
+                            name: 'user_name'
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'facility_name',
+                            name: 'facility_name'
                         },
                         {
-                            data: 'email',
-                            name: 'email'
+                            data: 'time_start',
+                            name: 'time_start'
                         },
                         {
-                            data: 'role',
-                            name: 'role'
+                            data: 'time_end',
+                            name: 'time_end'
+                        },
+                        {
+                            data: 'status_label',
+                            name: 'status_label',
+                            orderable: false,
+                            searchable: false
                         },
                         {
                             data: 'action',
                             name: 'action',
                             orderable: false,
                             searchable: false
-                        }
+                        },
                     ]
                 });
             });

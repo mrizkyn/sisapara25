@@ -22,8 +22,9 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Tipe</th>
+                                <th>Nama Fasilitas</th>
+                                <th>lokasi</th>
+                                <th>kapasitas</th>
                                 <th>Pengelola</th>
                                 <th>Aksi</th>
                             </tr>
@@ -42,16 +43,20 @@
                 responsive: true,
                 ajax: '{{ route('admin.facilities.index') }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        data: 'no',
+                        name: 'no',
                     },
                     {
                         data: 'name',
                         name: 'name'
                     },
                     {
-                        data: 'type',
-                        name: 'type'
+                        data: 'location',
+                        name: 'location'
+                    },
+                    {
+                        data: 'capacity',
+                        name: 'capacity'
                     },
                     {
                         data: 'user_name',

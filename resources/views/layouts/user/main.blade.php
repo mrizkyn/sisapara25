@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="copyright" content="SISPARA">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title>SISPARA @yield('title', '| Home')</title>
-
     {{-- Bootsreap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -19,12 +20,25 @@
 
     {{-- BOX ICON --}}
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    {{-- DataTables CSS (Bootstrap 5) --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    {{-- jQuery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{-- DataTables JS (Bootstrap 5) --}}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    {{-- Swiper JS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 </head>
 
 <body class="bg-white">
     @include('layouts.user.header')
     <div>
-
         @yield('main-content')
     </div>
     @include('layouts.user.footer')
@@ -45,6 +59,7 @@
             });
         </script>
     @endif
+
     @if ($errors->any())
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -75,12 +90,15 @@
         </script>
     @endif
 
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
     </script>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    @stack('script')
 </body>
 
 </html>

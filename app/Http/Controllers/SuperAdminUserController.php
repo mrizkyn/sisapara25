@@ -16,7 +16,7 @@ class SuperAdminUserController extends Controller
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     return '
-                        <a href="' . route('superadmin.admin-management.edit', $row->id) . '" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="' . route('superadmin.admin-management.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>
                     ';
                 })
                 ->rawColumns(['action'])

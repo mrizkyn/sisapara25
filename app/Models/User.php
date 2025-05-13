@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Facility::class, 'user_id');
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

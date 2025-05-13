@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Facility;
 use Illuminate\Http\Request;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class AdminFacilityController extends Controller
@@ -12,16 +13,23 @@ class AdminFacilityController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            $userId = $request->user()->id;
             $facilities = Facility::join('users', 'facilities.user_id', '=', 'users.id')
                 ->select([
                     'facilities.id',
                     'facilities.name',
-                    'facilities.description',
-                    'facilities.type',
+                    'facilities.location',
+                    'facilities.capacity',
                     'facilities.user_id',
                     'users.name as user_name'
                 ])
-                ->get();
+                ->where('facilities.user_id', $userId)
+                ->orderBy('facilities.created_at', 'desc')
+                ->get()
+                ->map(function ($facility, $index) {
+                    $facility->no = $index + 1;
+                    return $facility;
+                });
 
             return DataTables::of($facilities)
                 ->editColumn('user_name', function ($facility) {
@@ -29,14 +37,17 @@ class AdminFacilityController extends Controller
                 })
                 ->addColumn('action', function ($facility) {
                     return '<a href="' . route('admin.facilities.edit', $facility->id) . '" class="btn btn-primary btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm btn-delete" data-id="' . $facility->id . '">Delete</button>';
+            <a href="' . route('admin.facilities.show', $facility->id) . '" class="btn btn-info btn-sm">Detail</a>
+            <button class="btn btn-danger btn-sm btn-delete" data-id="' . $facility->id . '">Delete</button>';
                 })
+
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
         return view('admin.facilities.index');
     }
+
     public function create()
     {
         return view('admin.facilities.create');
@@ -51,24 +62,12 @@ class AdminFacilityController extends Controller
             'type'        => 'required|string|max:100',
             'capacity'    => 'required|integer|min:1',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg',
-            'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
+
         $validated['user_id'] = $request->user()->id;
 
         if ($request->hasFile('image')) {
-            $imageFile = $request->file('image');
-            $imageName = date('Y-m-d_His') . '-' . $imageFile->getClientOriginalName();
-
-            $mainPath = public_path('storage/facilities/');
-            Image::read($imageFile)->save($mainPath . $imageName);
-
-            $validated['image'] = 'facilities/' . $imageName;
-
-            $thumbPath = public_path('storage/facilities/thumbnails/');
-            $thumbName = 'thumbnail-' . $imageName;
-            Image::read($imageFile)->resize(200, 200)->save($thumbPath . $thumbName);
-
-            $validated['thumbnail_image'] = 'facilities/thumbnails/' . $thumbName;
+            $validated['image'] = $this->processImage($request->file('image'));
         }
 
         Facility::create($validated);
@@ -85,47 +84,30 @@ class AdminFacilityController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Cari fasilitas berdasarkan ID
         $facility = Facility::findOrFail($id);
 
-        // Cek apakah fasilitas yang akan diupdate adalah milik user yang sedang login
         if ($facility->user_id !== $request->user()->id) {
             return redirect()->route('admin.facilities.index')
                 ->with('error', 'Anda tidak memiliki izin untuk mengupdate fasilitas ini.');
         }
 
         $validated = $request->validate([
-            'name'           => 'required|string|max:255',
-            'description'    => 'required|string',
-            'location'       => 'required|string|max:255',
-            'type'           => 'required|string|max:100',
-            'capacity'       => 'required|integer|min:1',
-            'image'          => 'nullable|image|mimes:jpeg,png,jpg',
-            'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'name'        => 'required|string|max:255',
+            'description' => 'required|string',
+            'location'    => 'required|string|max:255',
+            'type'        => 'required|string|max:100',
+            'capacity'    => 'required|integer|min:1',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $validated['user_id'] = $request->user()->id;
 
         if ($request->hasFile('image')) {
-            // Menyimpan gambar utama
-            $imageFile = $request->file('image');
-            $imageName = date('Y-m-d_His') . '-' . $imageFile->getClientOriginalName();
-
-            $mainPath = public_path('storage/facilities/');
-            Image::read($imageFile)->save($mainPath . $imageName);
-            $validated['image'] = 'facilities/' . $imageName;
-
-            $thumbPath = public_path('storage/facilities/thumbnails/');
-            $thumbName = 'thumbnail-' . $imageName;
-            Image::read($imageFile)->resize(200, 200)->save($thumbPath . $thumbName);
-            $validated['thumbnail_image'] = 'facilities/thumbnails/' . $thumbName;
-
-            if ($facility->image && file_exists(public_path('storage/' . $facility->image))) {
-                unlink(public_path('storage/' . $facility->image));
+            if ($facility->image && Storage::disk('public')->exists($facility->image)) {
+                Storage::disk('public')->delete($facility->image);
             }
-            if ($facility->thumbnail_image && file_exists(public_path('storage/' . $facility->thumbnail_image))) {
-                unlink(public_path('storage/' . $facility->thumbnail_image));
-            }
+
+            $validated['image'] = $this->processImage($request->file('image'));
         }
 
         $facility->update($validated);
@@ -133,8 +115,6 @@ class AdminFacilityController extends Controller
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Fasilitas berhasil diperbarui.');
     }
-
-
 
     public function destroy(Request $request, $id)
     {
@@ -144,16 +124,29 @@ class AdminFacilityController extends Controller
             return response()->json(['error' => 'Anda tidak memiliki izin untuk menghapus fasilitas ini.'], 403);
         }
 
-        if ($facility->image && file_exists(public_path('storage/' . $facility->image))) {
-            unlink(public_path('storage/' . $facility->image));
-        }
-
-        if ($facility->thumbnail_image && file_exists(public_path('storage/' . $facility->thumbnail_image))) {
-            unlink(public_path('storage/' . $facility->thumbnail_image));
+        if ($facility->image && Storage::disk('public')->exists($facility->image)) {
+            Storage::disk('public')->delete($facility->image);
         }
 
         $facility->delete();
 
         return response()->json(['success' => 'Fasilitas berhasil dihapus.']);
+    }
+
+    private function processImage($image)
+    {
+        $imageData = Image::read($image);
+        $quality = 75;
+
+        do {
+            $encodedImage = $imageData->toJpeg($quality);
+            $fileSize = strlen($encodedImage);
+            $quality -= 5;
+        } while ($fileSize > 300 * 1024 && $quality > 50);
+
+        $filename = 'facilities/' . now()->format('Ymd_His') . '_' . uniqid() . '.jpg';
+        Storage::disk('public')->put($filename, $encodedImage);
+
+        return $filename;
     }
 }
