@@ -21,7 +21,7 @@
                     success: function(response) {
                         if (response.success) {
                             Swal.fire('Terhapus!', response.success, 'success');
-                            $('#super-admin-table').DataTable().ajax.reload();
+                            $('#superadmin-table').DataTable().ajax.reload();
                         }
                     },
                     error: function(xhr) {

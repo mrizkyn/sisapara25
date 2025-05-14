@@ -8,7 +8,7 @@
                 <table class="table table-bordered" id="reservasiTable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>No</th>
                             <th>Nama User</th>
                             <th>Fasilitas</th>
                             <th>Mulai</th>
@@ -29,8 +29,8 @@
                 serverSide: true,
                 ajax: "{{ route('admin.reservasi.index') }}",
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        data: 'no',
+                        name: 'no'
                     },
                     {
                         data: 'user_name',
@@ -51,8 +51,6 @@
                     {
                         data: 'status_label',
                         name: 'status',
-                        orderable: false,
-                        searchable: false
                     },
                     {
                         data: 'action',

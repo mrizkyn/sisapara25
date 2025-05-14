@@ -16,7 +16,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="users-table"
+                    <table id="superadmin-admin-management"
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
@@ -35,7 +35,7 @@
     @push('script')
         <script>
             $(document).ready(function() {
-                $('#users-table').DataTable({
+                $('#superadmin-admin-management').DataTable({
                     processing: true,
                     serverSide: true,
                     responsive: true,

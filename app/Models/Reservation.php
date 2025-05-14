@@ -17,6 +17,7 @@ class Reservation extends Model
         'approved_by',
         'final_approved_by',
         'image',
+        'letter'
     ];
     public function user()
     {

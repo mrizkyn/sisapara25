@@ -57,6 +57,8 @@ Route::middleware('superAdmin')->prefix('superadmin')->name('superadmin.')->grou
     // Route untuk pengajuan areservasi
     Route::prefix('reservasi')->name('reservasi.')->group(function () {
         Route::get('/', [SuperAdminReservationController::class, 'index'])->name('index');
+        Route::get('/Approved', [SuperAdminReservationController::class, 'indexApproved'])->name('indexapproved');
+        Route::get('/Verified', [SuperAdminReservationController::class, 'indexVerified'])->name('indexVerified');
         Route::get('/{id}', [SuperAdminReservationController::class, 'show'])->name('show');
         Route::post('/{id}/approve', [SuperAdminReservationController::class, 'approve'])->name('approve');
         Route::post('/{id}/reject', [SuperAdminReservationController::class, 'reject'])->name('reject');
@@ -82,6 +84,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     // Route untuk Pengajuan reservasi
     Route::prefix('reservasi')->name('reservasi.')->group(function () {
         Route::get('/', [AdminReservationController::class, 'index'])->name('index');
+        Route::get('/pending', [AdminReservationController::class, 'indexPending'])->name('indexPending');
+        Route::get('/verified', [AdminReservationController::class, 'indexVerified'])->name('indexVerified');
         Route::get('/{id}', [AdminReservationController::class, 'show'])->name('show');
         Route::post('/{id}/verify', [AdminReservationController::class, 'verify'])->name('verify');
         Route::post('/{id}/reject', [AdminReservationController::class, 'reject'])->name('reject');

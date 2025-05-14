@@ -322,8 +322,8 @@ body {
 
 
 /* DataTabels Cusstom */
-#users-table th,
-#users-table thead {
+ th,
+ thead {
     background-color: teal !important;
     color: white !important;
 }

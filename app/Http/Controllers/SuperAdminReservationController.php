@@ -22,9 +22,14 @@ class SuperAdminReservationController extends Controller
                     'reservations.time_end',
                     'reservations.status',
                 ])
-                ->where('reservations.status', 'verified')
+                ->where('reservations.status', '!=', 'pending')
+
                 ->orderBy('reservations.created_at', 'desc')
-                ->get();
+                ->get()
+                ->map(function ($reservations, $index) {
+                    $reservations->no = $index + 1;
+                    return $reservations;
+                });
 
             return DataTables::of($reservations)
                 ->addColumn('status_label', function ($r) {
@@ -52,6 +57,7 @@ class SuperAdminReservationController extends Controller
 
         return view('superadmin.reservations.index');
     }
+
 
     public function show($id)
     {

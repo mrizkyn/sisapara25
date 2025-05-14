@@ -11,7 +11,7 @@
                         <span class="navlink">Dashboard</span>
                     </a>
                 </li>
-                <div class="menu_title menu_setting"></div>
+                {{-- <div class="menu_title menu_setting"></div> --}}
                 <li class="item">
                     <a href="{{ route('superadmin.admin-management.index') }}" class="nav_link">
                         <span class="navlink_icon">
@@ -20,18 +20,25 @@
                         <span class="navlink">Kelola Admin</span>
                     </a>
                 </li>
-                <div class="menu_title menu_setting"></div>
                 <li class="item">
                     <a href="{{ route('superadmin.articles.index') }}" class="nav_link">
                         <span class="navlink_icon">
                             <i class='bx bx-news'></i>
-
                         </span>
                         <span class="navlink">Artikel</span>
                     </a>
                 </li>
-
                 <li class="item">
+                    <a href="{{ route('superadmin.reservasi.index') }}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-calendar"></i>
+
+                        </span>
+                        <span class="navlink">Reservasi</span>
+                    </a>
+                </li>
+
+                {{-- <li class="item">
                     <div href="#" class="nav_link submenu_item">
                         <span class="navlink_icon">
                             <i class="bx bx-calendar"></i>
@@ -40,10 +47,14 @@
                         <i class="bx bx-chevron-right arrow-left"></i>
                     </div>
                     <ul class="menu_items submenu">
-                        <a href="{{ route('superadmin.reservasi.index') }}" class="nav_link sublink">Semua Reservasi</a>
-                        <a href="#" class="nav_link sublink">menu2</a>
+                        <a href="{{ route('superadmin.reservasi.index') }}" class="nav_link sublink">Semua
+                            Reservasi</a>
+                        <a href="{{ route('superadmin.reservasi.indexVerified') }}" class="nav_link sublink">Perlu
+                            Persetujuan</a>
+                        <a href="{{ route('superadmin.reservasi.indexapproved') }}" class="nav_link sublink">Sudah
+                            Distujui</a>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         @endcan
         @can('admin')
@@ -64,21 +75,13 @@
                         <span class="navlink">Prasarana</span>
                     </a>
                 </li>
-
                 <li class="item">
-                    <div href="#" class="nav_link submenu_item">
+                    <a href="{{ route('admin.reservasi.index') }}" class="nav_link">
                         <span class="navlink_icon">
                             <i class="bx bx-calendar"></i>
                         </span>
                         <span class="navlink">Reservasi</span>
-                        <i class="bx bx-chevron-right arrow-left"></i>
-                    </div>
-                    <ul class="menu_items submenu">
-                        <a href="{{ route('admin.reservasi.index') }}" class="nav_link sublink">Semua Reservasi</a>
-                        {{-- <a href="#" class="nav_link sublink">Perlu Persetujuan</a>
-                        <a href="#" class="nav_link sublink">Sudah Disetujui</a> --}}
-
-                    </ul>
+                    </a>
                 </li>
             </ul>
         @endcan

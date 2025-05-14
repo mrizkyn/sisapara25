@@ -20,7 +20,8 @@
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
-                                <th>User</th>
+                                <th>No</th>
+                                <th>Nama Pengguna</th>
                                 <th>Fasilitas</th>
                                 <th>Waktu Mulai</th>
                                 <th>Waktu Selesai</th>
@@ -40,8 +41,14 @@
                     processing: true,
                     serverSide: true,
                     responsive: true,
+
+
                     ajax: '{{ route('superadmin.reservasi.index') }}',
                     columns: [{
+                            data: 'no',
+                            name: 'no',
+                        },
+                        {
                             data: 'user_name',
                             name: 'user_name'
                         },
@@ -60,8 +67,7 @@
                         {
                             data: 'status_label',
                             name: 'status_label',
-                            orderable: false,
-                            searchable: false
+
                         },
                         {
                             data: 'action',

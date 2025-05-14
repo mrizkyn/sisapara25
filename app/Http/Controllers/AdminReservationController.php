@@ -26,7 +26,11 @@ class AdminReservationController extends Controller
                     'reservations.status',
                 ])
                 ->orderBy('reservations.created_at', 'desc')
-                ->get();
+                ->get()
+                ->map(function ($reservations, $index) {
+                    $reservations->no = $index + 1;
+                    return $reservations;
+                });
 
             return DataTables::of($reservations)
                 ->addColumn('status_label', function ($r) {
@@ -56,20 +60,19 @@ class AdminReservationController extends Controller
     public function show($id)
     {
         $reservation = Reservation::findOrFail($id);
+
         $user = $reservation->user;
         $facility = $reservation->facility;
 
-        if ($facility->user_id !== Auth::id()) {
-            return redirect()->route('admin.facilities.index')
-                ->with('error', 'Anda tidak memiliki izin untuk mengupdate fasilitas ini.');
-        }
+
         if ($facility->user_id !== Auth::id()) {
             return redirect()->route('admin.reservasi.index')->with('error', 'Anda tidak memiliki akses ke fasilitas ini.');
         }
         return view('admin.reservations.show', compact('reservation', 'user', 'facility'));
     }
 
-    public function verify(Request $request, $id)
+
+    public function verify($id)
     {
         $reservation = Reservation::with(['user', 'facility'])->findOrFail($id);
 
@@ -83,19 +86,18 @@ class AdminReservationController extends Controller
 
         $reservation->update([
             'status' => 'verified',
-            'approved_by' => $request->user()->id,
+            'approved_by' => Auth::id(),
             'letter' => 'letters/' . $fileName,
         ]);
 
         return redirect()->route('admin.reservasi.index')->with('success', 'Reservasi diverifikasi dan surat telah dikirim ke superadmin.');
     }
 
-
-    public function reject(Request $request, $id)
+    public function reject($id)
     {
         $reservation = Reservation::findOrFail($id);
         $reservation->status = 'rejected';
-        $reservation->approved_by = $request->user()->id;
+        $reservation->approved_by = Auth::id();
         $reservation->save();
 
         return redirect()->route('admin.reservasi.index')->with('error', 'Reservation rejected!');

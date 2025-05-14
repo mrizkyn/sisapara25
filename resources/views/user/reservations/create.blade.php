@@ -20,8 +20,7 @@
                             class="form-select @error('facility_id') is-invalid @enderror">
                             <option value="">Pilih Fasilitas</option>
                             @foreach ($facilities as $facility)
-                                <option value="{{ $facility->id }}"
-                                    data-image="{{ asset('storage/' . $facility->thumbnail_image) }}"
+                                <option value="{{ $facility->id }}" data-image="{{ asset('storage/' . $facility->image) }}"
                                     {{ old('facility_id') == $facility->id ? 'selected' : '' }}>
                                     {{ $facility->name }}
                                 </option>
