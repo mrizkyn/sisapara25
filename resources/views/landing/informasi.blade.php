@@ -63,7 +63,7 @@
         <div class="hero-content container">
             <h1>Sarana & Prasarana Olahraga</h1>
             <p>Informasi lengkap seputar fasilitas olahraga untuk menunjang aktivitas dan prestasi Anda.</p>
-            <a href="#fasilitas" class="btn btn-light">Jelajahi Fasilitas</a>
+            <a href="{{ route('reservasi') }}" class="btn btn-light">Jelajahi Fasilitas</a>
 
         </div>
     </section>
@@ -321,7 +321,8 @@
                         secara
                         optimal.
                     </p>
-                    <a href="http://" class="learn-more-btn mt-2 text-black" style="text-decoration: none"> Selengkapnya
+                    <a href="{{ route('reservasi') }}" class="learn-more-btn mt-2 text-black"
+                        style="text-decoration: none"> Selengkapnya
                         →</a>
                 </div>
             </div>
@@ -449,7 +450,7 @@
 
                                 <p class="text-muted">Ditulis oleh: {{ $latest->user->name }}</p>
                                 <!-- Menampilkan nama user -->
-                                <a href="{{ route('article.show', $latest->id) }}" class="btn btn-outline-primary">Baca
+                                <a href="{{ route('article.show', $latest->slug) }}" class="btn btn-outline-primary">Baca
                                     Selengkapnya</a>
                             </div>
                         </div>
@@ -466,7 +467,7 @@
                     <ul class="list-group">
                         @foreach ($others as $article)
                             <li class="list-group-item mb-2">
-                                <a href="{{ route('article.show', $article->id) }}"
+                                <a href="{{ route('article.show', $article->slug) }}"
                                     class="text-decoration-none text-dark">
                                     {{ $article->title }} <br> <small class="text-muted">oleh
                                         {{ $article->user->name }}</small>

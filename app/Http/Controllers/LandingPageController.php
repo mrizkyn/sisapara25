@@ -12,18 +12,18 @@ class LandingPageController extends Controller
 {
     public function home()
     {
-        $facilities = Facility::select(['id', 'image', 'name'])->latest()->take(5)->get();
+        $facilities = Facility::select(['id', 'banner', 'name'])->latest()->take(5)->get();
         return view('landing.home', compact('facilities'));
     }
 
     public function informasi()
     {
-        $latest = Article::select('id', 'title', 'content', 'image', 'user_id')
+        $latest = Article::select('id', 'slug', 'title', 'content', 'image', 'user_id')
             ->with('user:id,name')
             ->latest()
             ->first();
 
-        $others = Article::select('id', 'title', 'user_id')
+        $others = Article::select('id', 'slug', 'title', 'user_id')
             ->with('user:id,name')
             ->latest()
             ->skip(1)
@@ -33,24 +33,24 @@ class LandingPageController extends Controller
         return view('landing.informasi', compact('latest', 'others'));
     }
 
-    public function showArticle($id)
-    {
-        $article = Article::findOrFail($id);
 
-        $otherArticles = Article::select('id', 'title', 'user_id')
+    public function showArticle($slug)
+    {
+        $article = Article::where('slug', $slug)->firstOrFail();
+
+        $otherArticles = Article::select('id', 'title', 'user_id', 'slug')
             ->with('user:id,name')
-            ->where('id', '!=', $id)
+            ->where('slug', '!=', $slug)
             ->latest()
             ->paginate(7);
+
         return view('landing.article.show', compact('article', 'otherArticles'));
     }
 
 
-
-
     public function reservasi()
     {
-        $facilities = Facility::select(['id', 'name', 'image', 'capacity'])
+        $facilities = Facility::select(['id', 'name', 'banner', 'capacity'])
             ->latest()
             ->get();
         return view('landing.reservasi', compact('facilities'));

@@ -50,7 +50,7 @@
                     <ul class="list-group">
                         @foreach ($otherArticles as $other)
                             <li class="list-group-item mb-2 border-0">
-                                <a href="{{ route('article.show', $other->id) }}" class="text-decoration-none text-dark">
+                                <a href="{{ route('article.show', $other->slug) }}" class="text-decoration-none text-dark">
                                     {{ $other->title }} <br> <small class="text-muted">oleh {{ $other->user->name }}</small>
                                 </a>
                             </li>

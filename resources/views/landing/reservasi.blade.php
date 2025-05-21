@@ -289,7 +289,7 @@
                         @foreach ($facilities as $facility)
                             <div class="col">
                                 <div class="card h-100">
-                                    <img src="{{ asset('storage/' . $facility->image) }}"
+                                    <img src="{{ asset('storage/' . $facility->banner) }}"
                                         class="card-img-top card-img-fixed " alt="{{ $facility->name }}">
                                     <div class="card-body d-flex justify-content-lg-between align-items-center"
                                         style="margin-bottom:0; ">

@@ -93,7 +93,7 @@
         <p>Nama Pengaju: <strong>{{ $reservation->user->name }}</strong></p>
 
         <p class="label">Data Admin yang Mengajukan:</p>
-        <p>Nama Admin: <strong>{{ $request->user()->name }}</strong></p>
+        <p>Nama Admin: <strong>{{ Auth::user()->name }}</strong></p>
 
         <p class="label">Data Kegiatan:</p>
 

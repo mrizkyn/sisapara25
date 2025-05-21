@@ -23,7 +23,6 @@ class SuperAdminReservationController extends Controller
                     'reservations.status',
                 ])
                 ->where('reservations.status', '!=', 'pending')
-
                 ->orderBy('reservations.created_at', 'desc')
                 ->get()
                 ->map(function ($reservations, $index) {

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('location');
             $table->string('type');
             $table->integer('capacity');
-            $table->string('image')->nullable();
+            $table->string('banner')->nullable();
+            $table->json('images')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

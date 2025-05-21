@@ -1,7 +1,7 @@
-@extends('layouts.user.main')
+@extends('layouts.panel.main')
 
-@section('main-content')
-    <div class="container py-5" style="margin-top: 120px;">
+@section('main')
+    <div class="container py-5">
         <div class="row g-4 mb-5 align-items-stretch">
             <div class="col-md-5">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
@@ -13,7 +13,7 @@
                 <div class="card border-0 shadow-sm rounded-4 h-100">
                     <div class="card-body p-4">
                         <div class="pt-3 pb-4">
-                            <h1 class="fs-2 fw-bold mb-0" style="color:  #016974">{{ $facility->name }}</h1>
+                            <h1 class="fs-2 fw-bold mb-0" style="color:  #000000">{{ $facility->name }}</h1>
                         </div>
                         <div class="row gy-3 mb-4">
                             <div class="col-sm-6">
@@ -44,8 +44,8 @@
                             <h5 class="fw-semibold mb-2">Deskripsi</h5>
                             <p class="text-muted mb-0">{{ $facility->description }}</p>
                         </div>
-                        <div class="p-2">
-                            <a href="{{ route('reservasi') }}" class="btn btn-outline-secondary mb-4">
+                        <div class="pt-3">
+                            <a href="{{ route('admin.facilities.index') }}" class="btn btn-outline-secondary mb-4">
                                 <i class="bi bi-arrow-left"></i> Kembali ke Daftar
                             </a>
                         </div>
@@ -57,7 +57,7 @@
         {{-- Galeri --}}
         @if (!empty($facility->images))
             <section class="pt-2 px-2 ">
-                <h4 class="fw-semibold mb-4 text-center" style="color:  #016974">Galeri Fasilitas</h4>
+                <h4 class="fw-semibold mb-4 text-center" style="color:  #000000">Galeri Fasilitas</h4>
                 <div class="swiper mySwiper px-2 pb-5">
                     <div class="swiper-wrapper">
                         @foreach (json_decode($facility->images) as $image)
@@ -124,4 +124,5 @@
             });
         });
     </script>
+
 @endsection

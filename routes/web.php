@@ -17,7 +17,8 @@ Route::get('/jadwal-reservasi', [LandingPageController::class, 'jadwalReservasi'
 
 Route::get('/reservasi/{id}', [LandingPageController::class, 'reservasiShow'])->name('landing.reservasi.show');
 Route::get('/informasi', [LandingPageController::class, 'informasi'])->name('informasi');
-Route::get('informasi/article/{id}', [LandingPageController::class, 'showArticle'])->name('article.show');
+Route::get('informasi/article/{slug}', [LandingPageController::class, 'showArticle'])->name('article.show');
+
 Route::get('/faq', [LandingPageController::class, 'faq'])->name('faq');
 
 // Route auth All
@@ -48,10 +49,10 @@ Route::middleware('superAdmin')->prefix('superadmin')->name('superadmin.')->grou
         Route::get('/', [ArticleController::class, 'index'])->name('index');
         Route::get('/create', [ArticleController::class, 'create'])->name('create');
         Route::post('/', [ArticleController::class, 'store'])->name('store');
-        Route::get('/{id}/edit', [ArticleController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [ArticleController::class, 'update'])->name('update');
-        Route::get('/{id}', [ArticleController::class, 'show'])->name('show');
-        Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('destroy');
+        Route::get('/{slug}/edit', [ArticleController::class, 'edit'])->name('edit');
+        Route::put('/{slug}', [ArticleController::class, 'update'])->name('update');
+        Route::get('/{slug}', [ArticleController::class, 'show'])->name('show');
+        Route::delete('/{slug}', [ArticleController::class, 'destroy'])->name('destroy');
     });
 
     // Route untuk pengajuan areservasi

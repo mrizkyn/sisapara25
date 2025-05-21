@@ -18,10 +18,12 @@ class ArticleController extends Controller
             $articles = Article::join('users', 'articles.user_id', '=', 'users.id')
                 ->select([
                     'articles.id',
+                    'articles.slug',
                     'articles.title',
                     'users.name as user_name',
                     'articles.created_at'
-                ])->where('articles.user_id', $userId)
+                ])
+                ->where('articles.user_id', $userId)
                 ->orderBy('articles.created_at', 'desc')
                 ->get()
                 ->map(function ($article, $index) {
@@ -30,16 +32,13 @@ class ArticleController extends Controller
                 });
 
             return DataTables::of($articles)
-                ->editColumn('user_name', function ($articles) {
-                    return $articles->user_name ?? '-';
-                })
-                ->editColumn('created_at', function ($articles) {
-                    return Carbon::parse($articles->created_at)->format('Y-m-d');
-                })
+                ->editColumn('created_at', fn($a) => Carbon::parse($a->created_at)->format('Y-m-d'))
                 ->addColumn('action', function ($article) {
-                    return '<a href="' . route('superadmin.articles.edit', $article->id) . '" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="' . route('superadmin.articles.show', $article->id) . '" class="btn btn-info btn-sm">detail</a>
-                    <button class="btn btn-danger btn-sm btn-delete" data-id="' . $article->id . '">Delete</button>';
+                    return '
+                        <a href="' . route('superadmin.articles.edit', $article->slug) . '" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="' . route('superadmin.articles.show', $article->slug) . '" class="btn btn-info btn-sm">Detail</a>
+                        <button class="btn btn-danger btn-sm btn-delete" data-id="' . $article->slug . '">Delete</button>
+                    ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -77,21 +76,21 @@ class ArticleController extends Controller
         return to_route('superadmin.articles.index')->with('success', 'Artikel berhasil ditambahkan.');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $article = Article::with('user:id,name')->findOrFail($id);
+        $article = Article::with('user:id,name')->where('slug', $slug)->firstOrFail();
         return view('superadmin.articles.show', compact('article'));
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::where('slug', $slug)->firstOrFail();
         return view('superadmin.articles.edit', compact('article'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::where('slug', $slug)->firstOrFail();
 
         $validated = $request->validate([
             'title'   => 'required|string|max:255',
@@ -100,7 +99,6 @@ class ArticleController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($article->image && Storage::disk('public')->exists($article->image)) {
                 Storage::disk('public')->delete($article->image);
             }
@@ -113,9 +111,9 @@ class ArticleController extends Controller
         return to_route('superadmin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $slug)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::where('slug', $slug)->firstOrFail();
 
         if ($article->user_id !== $request->user()->id) {
             return response()->json(['error' => 'Anda tidak memiliki izin untuk menghapus artikel ini.'], 403);
@@ -129,6 +127,7 @@ class ArticleController extends Controller
 
         return response()->json(['success' => 'Artikel berhasil dihapus.']);
     }
+
 
     private function processImage($image)
     {

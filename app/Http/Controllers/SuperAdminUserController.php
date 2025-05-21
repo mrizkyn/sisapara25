@@ -12,7 +12,13 @@ class SuperAdminUserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::select(['id', 'name', 'email', 'role', 'created_at']);
+            $data = User::select(['id', 'name', 'email', 'role', 'created_at'])
+                ->orderBy('created_at', 'desc')
+                ->get()
+                ->map(function ($data, $index) {
+                    $data->no = $index + 1;
+                    return $data;
+                });
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     return '
@@ -22,6 +28,7 @@ class SuperAdminUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
         return view('superadmin.admin-management.index');
     }
 

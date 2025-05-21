@@ -141,8 +141,8 @@
                     <div class="swiper mySwiper1">
                         <div class="swiper-wrapper">
                             @foreach ($facilities as $facility)
-                                <div class="swiper-slide"><img src="{{ asset('storage/' . $facility->image) }}"
-                                        alt="{{ $facility->name }}" />
+                                <div class="swiper-slide"><img src="{{ asset('storage/' . $facility->banner) }}"
+                                        alt="{{ $facility->banner }}" />
                                 </div>
                             @endforeach
 
@@ -158,7 +158,7 @@
                             lapangan serbaguna yang dirancang dengan standar tinggi untuk mendukung kegiatan pelatihan,
                             kompetisi, hingga acara olahraga skala besar.</p>
                     </div>
-                    <button class="btn btn-outline-dark">Lihat Detail</button>
+                    <a href="{{ route('reservasi') }}" class="btn btn-outline-dark">Lihat Detail</a>
                 </div>
             </div>
 
@@ -191,7 +191,7 @@
                             alat kebugaran, papan skor digital, serta ruang ganti dan tribun penonton untuk kenyamanan
                             pengguna fasilitas kami.</p>
                     </div>
-                    <button class="btn btn-outline-dark">Lihat Detail</button>
+                    <a href="{{ route('reservasi') }}" class="btn btn-outline-dark">Lihat Detail</a>
                 </div>
             </div>
         </div>

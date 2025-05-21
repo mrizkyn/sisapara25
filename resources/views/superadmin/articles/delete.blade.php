@@ -1,6 +1,12 @@
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+
     $(document).on('click', '.btn-delete', function() {
-        let id = $(this).data('id');
+        let slug = $(this).data('id'); // asumsi data-id berisi slug
 
         Swal.fire({
             title: 'Yakin ingin menghapus?',
@@ -13,11 +19,8 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `/superadmin/articles/${id}`,
+                    url: `/superadmin/articles/${slug}`,
                     type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
                     success: function(response) {
                         if (response.success) {
                             Swal.fire('Terhapus!', response.success, 'success');
@@ -30,7 +33,7 @@
                             Swal.fire('Gagal!', errorResponse.error, 'error');
                         } else {
                             Swal.fire('Error', 'Terjadi kesalahan saat menghapus.',
-                                'error');
+                            'error');
                         }
                     }
                 });

@@ -35,7 +35,7 @@
                     <div class="mb-3">
                         <label class="form-label">Preview Fasilitas</label><br>
                         <img id="facility-preview" src="" alt="Preview Fasilitas"
-                            style="max-width: 100%; height: auto; display: none; border: 1px solid #ccc; padding: 5px;" />
+                            style="max-height: 300px; height: auto; display: none; border: 1px solid #ccc; padding: 5px;" />
                     </div>
 
                     <!-- Waktu Mulai -->
