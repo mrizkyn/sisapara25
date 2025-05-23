@@ -76,6 +76,7 @@
                             searchable: false
                         },
                     ]
+
                 });
             });
         </script>

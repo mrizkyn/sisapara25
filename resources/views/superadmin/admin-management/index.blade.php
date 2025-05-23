@@ -20,7 +20,7 @@
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>NO</th>
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Role</th>
@@ -41,8 +41,8 @@
                     responsive: true,
                     ajax: '{{ route('superadmin.admin-management.index') }}',
                     columns: [{
-                            data: 'id',
-                            name: 'id'
+                            data: 'no',
+                            name: 'no'
                         },
                         {
                             data: 'name',

@@ -12,7 +12,8 @@ class Facility extends Model
         'location',
         'type',
         'capacity',
-        'image',
+        'images',
+        'banner',
         'user_id',
 
     ];

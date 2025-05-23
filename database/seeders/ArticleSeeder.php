@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class ArticleSeeder extends Seeder
 {
@@ -106,8 +106,12 @@ class ArticleSeeder extends Seeder
             ],
         ];
 
-        foreach ($articles as $article) {
-            Article::create($article);
+        foreach ($articles as $index => $article) {
+            Article::create([
+                ...$article,
+                'created_at' => now()->subDays(rand(1, 30)),
+                'updated_at' => now(),
+            ]);
         }
     }
 }

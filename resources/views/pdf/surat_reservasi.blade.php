@@ -93,8 +93,12 @@
         <p>Nama Pengaju: <strong>{{ $reservation->user->name }}</strong></p>
 
         <p class="label">Data Admin yang Mengajukan:</p>
+<<<<<<< HEAD
 
         <p>Nama Admin: <strong>{{ $reservation->approvedBy->id ?? '-' }}</strong></p>
+=======
+        <p>Nama Admin: <strong>{{ Auth::user()->name }}</strong></p>
+>>>>>>> refs/remotes/origin/master
 
         <p class="label">Data Kegiatan:</p>
 

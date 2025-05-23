@@ -17,7 +17,6 @@ class AdminReservationController extends Controller
         if ($request->ajax()) {
             $reservations = Reservation::join('facilities', 'reservations.facility_id', '=', 'facilities.id')
                 ->join('users', 'reservations.user_id', '=', 'users.id')
-                ->where('facilities.user_id', Auth::id())
                 ->select([
                     'reservations.id',
                     'users.name as user_name',
@@ -26,6 +25,7 @@ class AdminReservationController extends Controller
                     'reservations.time_end',
                     'reservations.status',
                 ])
+                ->where('facilities.user_id', Auth::id())
                 ->orderBy('reservations.created_at', 'desc')
                 ->get()
                 ->map(function ($reservations, $index) {

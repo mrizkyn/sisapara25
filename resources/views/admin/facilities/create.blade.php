@@ -13,64 +13,73 @@
                 <form action="{{ route('admin.facilities.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <!-- Input Nama -->
+                    <!-- Nama -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Fasilitas</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" value="{{ old('name') }}" placeholder="Masukkan nama fasilitas" required>
+                            name="name" value="{{ old('name') }}" required>
                         @error('name')
-                            <div class="invalid-feedback">Nama fasilitas wajib diisi.</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Input Deskripsi -->
+                    <!-- Deskripsi -->
                     <div class="mb-3">
                         <label for="description" class="form-label">Deskripsi</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                            rows="4" placeholder="Masukkan deskripsi fasilitas" required>{{ old('description') }}</textarea>
+                            rows="4" required>{{ old('description') }}</textarea>
                         @error('description')
-                            <div class="invalid-feedback">Deskripsi wajib diisi.</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Input Lokasi -->
+                    <!-- Lokasi -->
                     <div class="mb-3">
                         <label for="location" class="form-label">Lokasi</label>
                         <input type="text" class="form-control @error('location') is-invalid @enderror" id="location"
-                            name="location" value="{{ old('location') }}" placeholder="Masukkan lokasi fasilitas" required>
+                            name="location" value="{{ old('location') }}" required>
                         @error('location')
-                            <div class="invalid-feedback">Lokasi wajib diisi.</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Input Tipe -->
+                    <!-- Tipe -->
                     <div class="mb-3">
                         <label for="type" class="form-label">Tipe</label>
                         <input type="text" class="form-control @error('type') is-invalid @enderror" id="type"
-                            name="type" value="{{ old('type') }}" placeholder="Masukkan tipe fasilitas" required>
+                            name="type" value="{{ old('type') }}" required>
                         @error('type')
-                            <div class="invalid-feedback">Tipe wajib diisi.</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Input Kapasitas -->
+                    <!-- Kapasitas -->
                     <div class="mb-3">
                         <label for="capacity" class="form-label">Kapasitas</label>
                         <input type="number" class="form-control @error('capacity') is-invalid @enderror" id="capacity"
-                            name="capacity" value="{{ old('capacity') }}" placeholder="Masukkan kapasitas fasilitas"
-                            required>
+                            name="capacity" value="{{ old('capacity') }}" required>
                         @error('capacity')
-                            <div class="invalid-feedback">Kapasitas wajib diisi dan harus berupa angka.</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Input Gambar -->
+                    <!-- Banner Utama -->
                     <div class="mb-3">
-                        <label for="image" class="form-label">Gambar</label>
-                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
-                            name="image" accept="image/*">
-                        @error('image')
-                            <div class="invalid-feedback">File gambar tidak valid.</div>
+                        <label for="banner" class="form-label">Banner Utama</label>
+                        <input type="file" class="form-control @error('banner') is-invalid @enderror" id="banner"
+                            name="banner" accept="image/*">
+                        @error('banner')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Galeri Gambar -->
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Galeri Gambar (bisa lebih dari satu)</label>
+                        <input type="file" class="form-control @error('images.*') is-invalid @enderror" id="images"
+                            name="images[]" multiple accept="image/*">
+                        @error('images.*')
+                            <div class="invalid-feedback">Setiap file harus berupa gambar.</div>
                         @enderror
                     </div>
 
@@ -79,6 +88,7 @@
                         <button type="submit" class="btn btn-success ms-auto">Simpan</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
