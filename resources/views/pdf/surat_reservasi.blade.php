@@ -93,7 +93,8 @@
         <p>Nama Pengaju: <strong>{{ $reservation->user->name }}</strong></p>
 
         <p class="label">Data Admin yang Mengajukan:</p>
-        <p>Nama Admin: <strong>{{ $request->user()->name }}</strong></p>
+
+        <p>Nama Admin: <strong>{{ $reservation->approvedBy->id ?? '-' }}</strong></p>
 
         <p class="label">Data Kegiatan:</p>
 
@@ -116,7 +117,8 @@
         <p class="label">Keterangan Tambahan:</p>
         <p>{{ $reservation->additional_info ?? 'Tidak ada' }}</p>
 
-        <p>Dengan ini kami mengajukan permohonan penggunaan fasilitas tersebut untuk kegiatan di atas kepada Disporapar
+        <p>Dengan ini kami mengajukan permohonan penggunaan fasilitas tersebut untuk kegiatan di atas kepada
+            Disporapar
             Kota [Nama Kota], dan mohon untuk mendapatkan persetujuan.</p>
 
         <p>Demikian surat permohonan ini kami buat dengan sebenar-benarnya untuk digunakan sebagaimana mestinya.</p>

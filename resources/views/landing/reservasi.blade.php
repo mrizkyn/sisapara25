@@ -191,7 +191,7 @@
                     <div class="subtext">Equip Yourself for the City</div>
                     <div class="brand-title">
                         Reservasi with<br>
-                        SISPARA
+                        SISAPARA
                     </div>
                     <div class="floating-box container">
                         <div class="row text-center d-flex align-items-center justify-content-center h-100">

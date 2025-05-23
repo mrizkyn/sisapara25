@@ -3,7 +3,7 @@
         <div class="row">
             <!-- Logo dan Deskripsi -->
             <div class="col-md-4 mb-4">
-                <h5 class="fw-bold">🏟️ SISPARA</h5>
+                <h5 class="fw-bold">🏟️ SISAPARA</h5>
                 <p class="text-white">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam necessitatibus, vel autem et illum
                     minima
@@ -54,7 +54,7 @@
 
         <!-- Bottom Footer -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <p class="mb-0 text-white">© 2025 SISPARA - DISPORA. Semua hak dilindungi.</p>
+            <p class="mb-0 text-white">© 2025 SISAPARA - DISPORA. Semua hak dilindungi.</p>
             <div>
                 <a href="#" class="text-white text-decoration-none me-3">Kebijakan Privasi</a>
                 <a href="#" class="text-white text-decoration-none">Syarat & Ketentuan</a>

@@ -2,10 +2,12 @@
 @section('main-content')
     <section class="hero Patterns">
         <div class="hero-text">
-            <h1>SISPARA</h1>
-            <p> Sistem Informasi Sarana dan Prasarana (SISPARA) adalah platform digital yang dirancang
-                untuk mempermudah pengelolaan fasilitas dan inventaris kampus secara efisien dan transparan.
-                Mulai dari peminjaman alat olahraga, ruang kelas, hingga pelaporan kerusakan—semua bisa dari genggaman.
+            <h1>SISAPARA</h1>
+            <p> Sistem Informasi Sarana dan Prasarana Dispora (SISAPARA) adalah platform digital yang dirancang
+                untuk mempermudah pengelolaan fasilitas dan inventaris sarana dan prasarana olahraga Dispora kota Bandung
+                secara efisien dan
+                transparan.
+                Mulai dari peminjaman alat olahraga, gedung olahraga, hingga pelaporan kerusakan.
             </p>
             <div>
                 <button class="hero-btn"><i class="animation"></i>selengkapnya<i class="animation"></i>

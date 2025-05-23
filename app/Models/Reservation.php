@@ -40,4 +40,10 @@ class Reservation extends Model
     {
         return $this->belongsTo(User::class, 'final_approved_by');
     }
+
+    public function approvedBy()
+{
+    return $this->belongsTo(User::class, 'approved_by');
+}
+
 }

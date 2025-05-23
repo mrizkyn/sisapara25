@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
-        SISPARA
+        SISAPARA
     </div>
     <div class="navbar_content">
         <i class="bi bi-grid"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use App\Models\Reservation;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -74,13 +75,15 @@ class AdminReservationController extends Controller
 
     public function verify($id)
     {
-        $reservation = Reservation::with(['user', 'facility'])->findOrFail($id);
+
+        $reservation = Reservation::with(['user', 'facility', 'approvedBy'])->findOrFail($id);
+
 
         if ($reservation->status !== 'pending') {
             return redirect()->route('admin.reservasi.index')->with('error', 'Reservasi sudah diproses.');
         }
 
-        $pdf = Pdf::loadView('pdf.surat_reservasi', compact('reservation', 'request'));
+        $pdf = Pdf::loadView('pdf.surat_reservasi', compact('reservation'));
         $fileName = 'surat_' . $reservation->id . '_' . time() . '.pdf';
         Storage::disk('public')->put('letters/' . $fileName, $pdf->output());
 
