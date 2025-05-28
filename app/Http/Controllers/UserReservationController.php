@@ -44,33 +44,8 @@ class UserReservationController extends Controller
     }
 
 
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'facility_id' => 'required|exists:facilities,id',
-    //         'time_start'  => 'required|date_format:Y-m-d\TH:i|after_or_equal:now',
-    //         'time_end'    => 'required|date_format:Y-m-d\TH:i|after:time_start',
-    //         'purpose'     => 'required|string|max:255',
-    //         'image'       => 'required|mimes:jpg,jpeg,png,pdf|max:2048',
-    //     ]);
-
-    //     $validated['user_id'] = Auth::id();
-    //     $validated['status'] = 'pending';
-
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $filename = 'reservations/' . now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-    //         Storage::disk('public')->putFileAs('reservations', $image, basename($filename));
-    //         $validated['image'] = $filename;
-    //     }
-    //     Reservation::create($validated);
-
-    //     return redirect()->route('user.reservasi.index')
-    //         ->with('success', 'Reservasi berhasil diajukan!');
-    // }
     public function store(Request $request)
     {
-        // Validasi input
         $validated = $request->validate([
             'facility_id' => 'required|exists:facilities,id',
             'time_start'  => 'required|date_format:Y-m-d\TH:i|after_or_equal:now',
@@ -79,7 +54,6 @@ class UserReservationController extends Controller
             'image'       => 'required|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Cek konflik jadwal pada fasilitas yang sama dan status sudah approved
         $conflict = Reservation::where('facility_id', $validated['facility_id'])
             ->where('status', 'approved')
             ->where(function ($query) use ($validated) {
@@ -92,18 +66,15 @@ class UserReservationController extends Controller
             })
             ->exists();
 
-        // Jika ada konflik, tolak permintaan
         if ($conflict) {
             return back()
                 ->withErrors(['time_start' => 'Fasilitas ini sudah dipesan pada waktu tersebut. Silakan pilih waktu lain.'])
                 ->withInput();
         }
 
-        // Tambah user_id dan status default
         $validated['user_id'] = Auth::id();
         $validated['status'] = 'pending';
 
-        // Simpan file gambar jika ada
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = 'reservations/' . now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
@@ -111,10 +82,8 @@ class UserReservationController extends Controller
             $validated['image'] = $filename;
         }
 
-        // Simpan reservasi ke database
         Reservation::create($validated);
 
-        // Redirect ke halaman daftar reservasi dengan pesan sukses
         return redirect()->route('user.reservasi.index')
             ->with('success', 'Reservasi berhasil diajukan!');
     }

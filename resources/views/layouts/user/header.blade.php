@@ -374,6 +374,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ route('user.profiles.index') }}">Profile</a></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -433,6 +434,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('user.profiles.index') }}">Profile</a></li>
                         <li><a href="{{ route('user.reservasi.index') }}">Reservasi</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">

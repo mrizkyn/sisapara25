@@ -119,7 +119,6 @@ class AdminFacilityController extends Controller
 
         $validated['user_id'] = $request->user()->id;
 
-        // Ganti banner
         if ($request->hasFile('banner')) {
             if ($facility->banner && Storage::disk('public')->exists($facility->banner)) {
                 Storage::disk('public')->delete($facility->banner);
@@ -127,7 +126,6 @@ class AdminFacilityController extends Controller
             $validated['banner'] = $this->processImage($request->file('banner'));
         }
 
-        // Ganti seluruh galeri (opsional: bisa kamu ubah jadi append kalau mau)
         if ($request->hasFile('images')) {
             if ($facility->images) {
                 foreach (json_decode($facility->images) as $oldImage) {

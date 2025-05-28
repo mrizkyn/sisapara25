@@ -68,6 +68,14 @@
                     </a>
                 </li>
                 <li class="item">
+                    <a href="{{ route('admin.profiles.index') }}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class='bx bxs-user'></i>
+                        </span>
+                        <span class="navlink">Profile</span>
+                    </a>
+                </li>
+                <li class="item">
                     <a href="{{ route('admin.facilities.index') }}" class="nav_link">
                         <span class="navlink_icon">
                             <i class="bx bx-grid-alt"></i>

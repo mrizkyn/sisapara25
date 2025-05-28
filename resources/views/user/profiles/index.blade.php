@@ -1,0 +1,27 @@
+@extends('layouts.user.main')
+
+@section('main-content')
+    <div class="container mt-4" style="padding-top: 120px; padding-bottom: 20px">
+        <h2 class="mb-4 fw-bold text-center">My Profile</h2>
+        <div class="card shadow-sm">
+            <div class="card-header text-white py-3" style="background-color: teal;">
+                <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i> My Profile</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <div class="form-control"> {{ $user->name }}</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <div class="form-control">{{ $user->email }}</div>
+                </div>
+                <div class="d-flex">
+                    <a href="{{ route('user.profiles.edit', $user->id) }}" class="btn btn-warning ms-auto">
+                        <i class="fas fa-edit me-1"></i> Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

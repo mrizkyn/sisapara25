@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class SuperAdminReservationController extends Controller
@@ -69,7 +68,6 @@ class SuperAdminReservationController extends Controller
         return view('superadmin.reservations.show', compact('reservation', 'user', 'facility'));
     }
 
-    // Method untuk menyetujui reservasi
     public function approve(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
@@ -90,7 +88,6 @@ class SuperAdminReservationController extends Controller
     {
         $reservation = Reservation::findOrFail($id);
 
-        // Jika status sudah approved, tidak bisa ditolak lagi
         if ($reservation->status === 'approved') {
             return redirect()->route('superadmin.reservasi.index')->with('error', 'Reservasi yang sudah disetujui tidak bisa ditolak.');
         }

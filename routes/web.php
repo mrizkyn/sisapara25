@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminFacilityController;
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminReservationController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SuperAdminReservationController;
 use App\Http\Controllers\SuperAdminUserController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserReservationController;
 
 Route::get('/', [LandingPageController::class, 'home'])->name('home');
@@ -71,6 +73,12 @@ Route::middleware('superAdmin')->prefix('superadmin')->name('superadmin.')->grou
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
 
+    // Route untuk Profile
+    Route::prefix('profiles')->name('profiles.')->group(function () {
+        Route::get('/', [AdminProfileController::class, 'index'])->name('index');
+        Route::get('/{id}/edit', [AdminProfileController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AdminProfileController::class, 'update'])->name('update');
+    });
     // Route untuk Fasilitas
     Route::prefix('facilities')->name('facilities.')->group(function () {
         Route::get('/', [AdminFacilityController::class, 'index'])->name('index');
@@ -101,4 +109,10 @@ Route::middleware('user')->prefix('user')->name('user.')->group(function () {
     Route::get('reservasi/create', [UserReservationController::class, 'create'])->name('reservasi.create');
     Route::post('reservasi', [UserReservationController::class, 'store'])->name('reservasi.store');
     Route::get('reservasi/{id}', [UserReservationController::class, 'show'])->name('reservasi.show');
+
+    Route::prefix('profiles')->name('profiles.')->group(function () {
+        Route::get('/', [UserProfileController::class, 'index'])->name('index');
+        Route::get('/{id}/edit', [UserProfileController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [UserProfileController::class, 'update'])->name('update');
+    });
 });
