@@ -23,27 +23,23 @@ class Reservation extends Model
     {
         return $this->belongsTo(User::class);
     }
-    // Relasi ke Facility yang dipinjam
     public function facility()
     {
         return $this->belongsTo(Facility::class);
     }
 
-    // Relasi ke Admin yang memverifikasi peminjaman
     public function approver()
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
 
-    // Relasi ke Superadmin yang menyetujui peminjaman final
     public function finalApprover()
     {
         return $this->belongsTo(User::class, 'final_approved_by');
     }
 
     public function approvedBy()
-{
-    return $this->belongsTo(User::class, 'approved_by');
-}
-
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
 }

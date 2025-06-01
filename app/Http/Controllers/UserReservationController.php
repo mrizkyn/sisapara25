@@ -48,8 +48,8 @@ class UserReservationController extends Controller
     {
         $validated = $request->validate([
             'facility_id' => 'required|exists:facilities,id',
-            'time_start'  => 'required|date_format:Y-m-d\TH:i|after_or_equal:now',
-            'time_end'    => 'required|date_format:Y-m-d\TH:i|after:time_start',
+            'time_start'  => 'required|date_format:Y-m-d H:i|after_or_equal:now',
+            'time_end'    => 'required|date_format:Y-m-d H:i|after:time_start',
             'purpose'     => 'required|string|max:255',
             'image'       => 'required|mimes:jpg,jpeg,png|max:2048',
         ]);

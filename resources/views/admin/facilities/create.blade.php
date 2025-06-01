@@ -63,6 +63,47 @@
                         @enderror
                     </div>
 
+                    <!-- Harga -->
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Harga Sewa (per jam)</label>
+                        <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror"
+                            id="price" name="price" value="{{ old('price') }}" required>
+                        @error('price')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Nama Pemilik Rekening -->
+                    <div class="mb-3">
+                        <label for="account_name" class="form-label">Nama Pemilik Rekening</label>
+                        <input type="text" class="form-control @error('account_name') is-invalid @enderror"
+                            id="account_name" name="account_name" value="{{ old('account_name') }}" required>
+                        @error('account_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Nomor Rekening -->
+                    <div class="mb-3">
+                        <label for="account_number" class="form-label">Nomor Rekening</label>
+                        <input type="text" class="form-control @error('account_number') is-invalid @enderror"
+                            id="account_number" name="account_number" value="{{ old('account_number') }}" required>
+                        @error('account_number')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Nama Bank -->
+                    <div class="mb-3">
+                        <label for="bank_name" class="form-label">Bank</label>
+                        <input type="text" class="form-control @error('bank_name') is-invalid @enderror" id="bank_name"
+                            name="bank_name" value="{{ old('bank_name') }}" required>
+                        @error('bank_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
                     <!-- Banner Utama -->
                     <div class="mb-3">
                         <label for="banner" class="form-label">Banner Utama</label>
@@ -76,8 +117,8 @@
                     <!-- Galeri Gambar -->
                     <div class="mb-3">
                         <label for="images" class="form-label">Galeri Gambar (bisa lebih dari satu)</label>
-                        <input type="file" class="form-control @error('images.*') is-invalid @enderror" id="images"
-                            name="images[]" multiple accept="image/*">
+                        <input type="file" class="form-control @error('images.*') is-invalid @enderror"
+                            id="images" name="images[]" multiple accept="image/*">
                         @error('images.*')
                             <div class="invalid-feedback">Setiap file harus berupa gambar.</div>
                         @enderror

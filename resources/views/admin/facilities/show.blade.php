@@ -39,6 +39,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row gy-3 mb-4">
+                            <!-- Harga Sewa -->
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
+                                        <i class="bi bi-cash-coin text-success fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-muted small">Harga Sewa / Jam</div>
+                                        <h5 class="mb-0">Rp {{ number_format($facility->price, 0, ',', '.') }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
+                                        <i class="bi bi-bank text-warning fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-muted small">Pembayaran ke</div>
+                                        <h6 class="mb-0">{{ $facility->account_name }}</h6>
+                                        <small class="d-block text-muted">{{ $facility->bank_name }} -
+                                            {{ $facility->account_number }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="bg-light p-4 rounded-3">
                             <h5 class="fw-semibold mb-2">Deskripsi</h5>
@@ -54,7 +83,6 @@
             </div>
         </div>
 
-        {{-- Galeri --}}
         @if (!empty($facility->images))
             <section class="pt-2 px-2 ">
                 <h4 class="fw-semibold mb-4 text-center" style="color:  #000000">Galeri Fasilitas</h4>
@@ -78,7 +106,6 @@
         @endif
     </div>
 
-    {{-- CDN & Style --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <style>
@@ -87,7 +114,6 @@
         }
     </style>
 
-    {{-- Script Swiper --}}
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

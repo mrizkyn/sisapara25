@@ -51,13 +51,17 @@ class AdminFacilityController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'required|string',
-            'location'    => 'required|string|max:255',
-            'type'        => 'required|string|max:100',
-            'capacity'    => 'required|integer|min:1',
-            'banner'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'images.*'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'name'           => 'required|string|max:255',
+            'description'    => 'required|string',
+            'location'       => 'required|string|max:255',
+            'type'           => 'required|string|max:100',
+            'capacity'       => 'required|integer|min:1',
+            'price'          => 'required|numeric|min:0',
+            'account_name'   => 'required|string|max:255',
+            'account_number' => 'required|string|max:50',
+            'bank_name'      => 'required|string|max:100',
+            'banner'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'images.*'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $validated['user_id'] = $request->user()->id;
@@ -108,13 +112,17 @@ class AdminFacilityController extends Controller
         }
 
         $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'required|string',
-            'location'    => 'required|string|max:255',
-            'type'        => 'required|string|max:100',
-            'capacity'    => 'required|integer|min:1',
-            'banner'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'images.*'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'name'           => 'required|string|max:255',
+            'description'    => 'required|string',
+            'location'       => 'required|string|max:255',
+            'type'           => 'required|string|max:100',
+            'capacity'       => 'required|integer|min:1',
+            'price'          => 'required|numeric|min:0',
+            'account_name'   => 'required|string|max:255',
+            'account_number' => 'required|string|max:50',
+            'bank_name'      => 'required|string|max:100',
+            'banner'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'images.*'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $validated['user_id'] = $request->user()->id;
@@ -168,7 +176,6 @@ class AdminFacilityController extends Controller
 
         return response()->json(['success' => 'Fasilitas berhasil dihapus.']);
     }
-
 
     private function processImage($image)
     {

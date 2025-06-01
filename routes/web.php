@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SuperAdminReservationController;
 use App\Http\Controllers\SuperAdminUserController;
@@ -88,6 +89,16 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::put('/{id}', [AdminFacilityController::class, 'update'])->name('update');
         Route::get('/{id}', [AdminFacilityController::class, 'show'])->name('show');
         Route::delete('/{id}', [AdminFacilityController::class, 'destroy'])->name('destroy');
+    });
+    // Route untuk equipment
+    Route::prefix('equipment')->name('equipment.')->group(function () {
+        Route::get('/', [EquipmentController::class, 'index'])->name('index');
+        Route::get('/create', [EquipmentController::class, 'create'])->name('create');
+        Route::post('/', [EquipmentController::class, 'store'])->name('store');
+        Route::get('/{id}/EquipmentControllerit', [EquipmentController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [EquipmentController::class, 'update'])->name('update');
+        Route::get('/{id}', [EquipmentController::class, 'show'])->name('show');
+        Route::delete('/{id}', [EquipmentController::class, 'destroy'])->name('destroy');
     });
 
     // Route untuk Pengajuan reservasi
