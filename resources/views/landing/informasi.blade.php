@@ -1,8 +1,6 @@
 @extends('layouts.user.main')
 @section('title', '| Informasi')
 @section('main-content')
-
-
     <section class="hero-fasilitas">
         <style>
             .hero-fasilitas {
@@ -60,11 +58,11 @@
                 }
             }
         </style>
+
         <div class="hero-content container">
             <h1>Sarana & Prasarana Olahraga</h1>
             <p>Informasi lengkap seputar fasilitas olahraga untuk menunjang aktivitas dan prestasi Anda.</p>
             <a href="{{ route('reservasi') }}" class="btn btn-light">Jelajahi Fasilitas</a>
-
         </div>
     </section>
 
@@ -117,76 +115,24 @@
 
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="sarana-card">
-                            <img src="{{ asset('img/basket.jpg') }}" alt="Kolam Renang" />
-                            <div class="card-body">
-                                <h5>Kolam Renang</h5>
-                                <p>Fasilitas kolam renang standar nasional untuk latihan dan rekreasi.</p>
+                    @foreach ($facilities as $facility)
+                        <div class="swiper-slide">
+                            <div class="sarana-card">
+                                <img src="{{ asset('storage/' . $facility->banner) }}" alt="{{ $facility->name }}" />
+                                <div class="card-body">
+                                    <h5>{{ $facility->name }}</h5>
+                                    <p>Kap. Maksimal: {{ $facility->capacity }} orang</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <div class="sarana-card">
-                            <img src="{{ asset('img/bola.jpg') }}" alt="Lapangan Futsal" />
-                            <div class="card-body">
-                                <h5>Lapangan Futsal</h5>
-                                <p>Lapangan indoor berstandar internasional dengan pencahayaan modern.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <div class="sarana-card">
-                            <img src="{{ asset('img/bet-tenis.jpg') }}" alt="Lapangan Basket" />
-                            <div class="card-body">
-                                <h5>Lapangan Basket</h5>
-                                <p>Area outdoor luas untuk latihan dan pertandingan basket.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="sarana-card">
-                            <img src="{{ asset('img/basket.jpg') }}" alt="Kolam Renang" />
-                            <div class="card-body">
-                                <h5>Kolam Renang</h5>
-                                <p>Fasilitas kolam renang standar nasional untuk latihan dan rekreasi.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <div class="sarana-card">
-                            <img src="{{ asset('img/bola.jpg') }}" alt="Lapangan Futsal" />
-                            <div class="card-body">
-                                <h5>Lapangan Futsal</h5>
-                                <p>Lapangan indoor berstandar internasional dengan pencahayaan modern.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <div class="sarana-card">
-                            <img src="{{ asset('img/bet-tenis.jpg') }}" alt="Lapangan Basket" />
-                            <div class="card-body">
-                                <h5>Lapangan Basket</h5>
-                                <p>Area outdoor luas untuk latihan dan pertandingan basket.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Navigasi -->
+                    @endforeach
                 </div>
+
+                <!-- Navigasi -->
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
+        </div>
     </section>
 
     <style>
@@ -304,8 +250,7 @@
         }
     </style>
     <section class="fasilitas">
-        <div class="container p-5"
-            style="background-color: #016974 ;border-radius:5px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; ">
+        <div class="container p-5" style="background-color: #016974 ; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; ">
             <div class="row align-items-center">
                 <div class="col-md-4">
                     <div class="img-box">
@@ -316,13 +261,15 @@
                 <div class="col-md-8 mt-4 mt-md-0">
                     <h3 class="fw-bold text-white section-title">Infrastruktur Berkualitas</h3>
                     <p class="desc-text text-white">
-                        Setiap fasilitas kami dirancang dengan standar terbaik untuk kenyamanan dan keamanan pengguna. Mulai
-                        dari lapangan, kolam, hingga area pelatihan—semuanya disiapkan untuk mendukung aktivitas olahraga
+                        Setiap fasilitas kami dirancang dengan standar terbaik untuk kenyamanan dan keamanan
+                        pengguna. Mulai
+                        dari lapangan, kolam, hingga area pelatihan—semuanya disiapkan untuk mendukung aktivitas
+                        olahraga
                         secara
                         optimal.
                     </p>
-                    <a href="{{ route('reservasi') }}" class="learn-more-btn mt-2 text-black"
-                        style="text-decoration: none"> Selengkapnya
+                    <a href="{{ route('reservasi') }}" class="learn-more-btn mt-2 text-black" style="text-decoration: none">
+                        Selengkapnya
                         →</a>
                 </div>
             </div>
@@ -352,38 +299,30 @@
         }
     </style>
 
-    <div class="container py-5">
+    <div class="container p-4 pt-5">
         <div class="row align-items-center">
             <div class="col-lg-4 mb-4 mb-lg-0">
                 <small class="text-muted">//Sarana & Fasilitas</small>
                 <h2 class="fw-bold">JELAJAHI<br><span style="color: #016974">SARANA KAMI</span></h2>
-                <p class="text-muted">Berbagai sarana olahraga tersedia untuk mendukung aktivitas dan pengembangan bakat
-                    Anda.</p>
+                <p class="text-muted">Berbagai sarana olahraga tersedia untuk mendukung aktivitas dan pengembangan
+                    bakat Anda.</p>
             </div>
             <div class="col-lg-8">
                 <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="position-relative menu-card">
-                            <img src="{{ asset('img/basket.jpg') }}" alt="Lapangan Basket" class="w-100 menu-img">
-                            <span class="label">🏀 Lapangan Basket</span>
+                    @foreach ($equipments as $equipment)
+                        <div class="col-md-4">
+                            <div class="position-relative menu-card">
+                                <img src="{{ asset('storage/' . $equipment->image) }}" alt="{{ $equipment->name }}"
+                                    class="w-100 menu-img">
+                                <span class="label">{{ $equipment->name }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="position-relative menu-card">
-                            <img src="{{ asset('img/ring-basket.jpg') }}" alt="Ring Basket" class="w-100 menu-img">
-                            <span class="label">⛹️ Ring Basket</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="position-relative menu-card">
-                            <img src="{{ asset('img/tenis1.jpg') }}" alt="Lapangan Tenis" class="w-100 menu-img">
-                            <span class="label">🎾 Lapangan Tenis</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+
     <style>
         .card-img-top {
             max-height: 400px;
@@ -433,7 +372,7 @@
             }
         }
     </style>
-    <section class="py-5">
+    <section class="p-3">
         <div class="container">
             <div class="row text-start">
                 <!-- Kiri: Artikel Terbaru -->

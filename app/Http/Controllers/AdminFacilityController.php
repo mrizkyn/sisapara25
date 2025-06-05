@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipment;
 use App\Models\Facility;
 use Illuminate\Http\Request;
 use Intervention\Image\Laravel\Facades\Image;
@@ -168,14 +169,27 @@ class AdminFacilityController extends Controller
 
         if ($facility->images) {
             foreach (json_decode($facility->images) as $img) {
-                Storage::disk('public')->delete($img);
+                if (Storage::disk('public')->exists($img)) {
+                    Storage::disk('public')->delete($img);
+                }
             }
+        }
+
+        $equipments = Equipment::where('facility_id', $facility->id)->get();
+
+        foreach ($equipments as $equipment) {
+            if ($equipment->image && Storage::disk('public')->exists($equipment->image)) {
+                Storage::disk('public')->delete($equipment->image);
+            }
+
+            $equipment->delete();
         }
 
         $facility->delete();
 
-        return response()->json(['success' => 'Fasilitas berhasil dihapus.']);
+        return response()->json(['success' => 'Fasilitas dan peralatan terkait berhasil dihapus.']);
     }
+
 
     private function processImage($image)
     {

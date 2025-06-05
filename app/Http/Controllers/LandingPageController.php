@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Equipment;
 use App\Models\Facility;
 use App\Models\Reservation;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
 {
     public function home()
     {
-        $facilities = Facility::select(['id', 'banner', 'name'])->latest()->take(5)->get();
-        return view('landing.home', compact('facilities'));
+        $facilities = Facility::select(['banner', 'name'])->inRandomOrder()->take(5)->get();
+        $equipments = Equipment::select(['image', 'name'])->inRandomOrder()->take(5)->get();
+        return view('landing.home', compact('facilities', 'equipments'));
     }
 
     public function informasi()
     {
+        $facilities = Facility::select(['name', 'banner', 'capacity'])
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
+
+        $equipments = Equipment::select(['name', 'image'])
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+
         $latest = Article::select('id', 'slug', 'title', 'content', 'image', 'user_id')
             ->with('user:id,name')
             ->latest()
@@ -30,9 +42,8 @@ class LandingPageController extends Controller
             ->take(7)
             ->get();
 
-        return view('landing.informasi', compact('latest', 'others'));
+        return view('landing.informasi', compact('latest', 'others', 'facilities', 'equipments'));
     }
-
 
     public function showArticle($slug)
     {
@@ -47,14 +58,21 @@ class LandingPageController extends Controller
         return view('landing.article.show', compact('article', 'otherArticles'));
     }
 
-
-    public function reservasi()
+    public function reservasi(Request $request)
     {
         $facilities = Facility::select(['id', 'name', 'banner', 'capacity'])
-            ->latest()
+            ->inRandomOrder()
             ->get();
-        return view('landing.reservasi', compact('facilities'));
+
+
+
+        $equipments = Equipment::select(['id', 'name', 'quantity', 'image'])
+            ->inRandomOrder()
+            ->get();
+
+        return view('landing.reservasi', compact('facilities', 'equipments'));
     }
+
 
     public function jadwalReservasi()
     {

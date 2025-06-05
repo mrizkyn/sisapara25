@@ -144,7 +144,7 @@
                         <div class="swiper-wrapper">
                             @foreach ($facilities as $facility)
                                 <div class="swiper-slide"><img src="{{ asset('storage/' . $facility->banner) }}"
-                                        alt="{{ $facility->banner }}" />
+                                        alt="{{ $facility->name }}" />
                                 </div>
                             @endforeach
 
@@ -169,18 +169,11 @@
                 <div class="col-md-4">
                     <div class="swiper mySwiper2">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="{{ asset('img/tenis1.jpg') }}" alt="Lapangan Tenis" />
-                            </div>
-                            <div class="swiper-slide"><img src="{{ asset('img/basket.jpg') }}" alt="Lapangan Tenis 2" />
-                            </div>
-                            <div class="swiper-slide"><img src="{{ asset('img/tenis1.jpg') }}" alt="Lapangan Tenis" />
-                            </div>
-                            <div class="swiper-slide"><img src="{{ asset('img/basket.jpg') }}" alt="Lapangan Tenis 2" />
-                            </div>
-                            <div class="swiper-slide"><img src="{{ asset('img/tenis1.jpg') }}" alt="Lapangan Tenis" />
-                            </div>
-                            <div class="swiper-slide"><img src="{{ asset('img/basket.jpg') }}" alt="Lapangan Tenis 2" />
-                            </div>
+                            @foreach ($equipments as $equipment)
+                                <div class="swiper-slide"><img src="{{ asset('storage/' . $equipment->image) }}"
+                                        alt="{{ $equipment->name }}" />
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

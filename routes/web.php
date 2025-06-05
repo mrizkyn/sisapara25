@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminEquipmentController;
 use App\Http\Controllers\AdminFacilityController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminReservationController;
@@ -90,15 +91,16 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/{id}', [AdminFacilityController::class, 'show'])->name('show');
         Route::delete('/{id}', [AdminFacilityController::class, 'destroy'])->name('destroy');
     });
+
     // Route untuk equipment
-    Route::prefix('equipment')->name('equipment.')->group(function () {
-        Route::get('/', [EquipmentController::class, 'index'])->name('index');
-        Route::get('/create', [EquipmentController::class, 'create'])->name('create');
-        Route::post('/', [EquipmentController::class, 'store'])->name('store');
-        Route::get('/{id}/EquipmentControllerit', [EquipmentController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [EquipmentController::class, 'update'])->name('update');
-        Route::get('/{id}', [EquipmentController::class, 'show'])->name('show');
-        Route::delete('/{id}', [EquipmentController::class, 'destroy'])->name('destroy');
+    Route::prefix('equipments')->name('equipments.')->group(function () {
+        Route::get('/', [AdminEquipmentController::class, 'index'])->name('index');
+        Route::get('/create', [AdminEquipmentController::class, 'create'])->name('create');
+        Route::post('/', [AdminEquipmentController::class, 'store'])->name('store');
+        Route::get('/{id}/EquipmentControllerit', [AdminEquipmentController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AdminEquipmentController::class, 'update'])->name('update');
+        Route::get('/{id}', [AdminEquipmentController::class, 'show'])->name('show');
+        Route::delete('/{id}', [AdminEquipmentController::class, 'destroy'])->name('destroy');
     });
 
     // Route untuk Pengajuan reservasi

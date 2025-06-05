@@ -267,8 +267,8 @@
                 <p class="w-75">Temukan fasilitas olahraga kami yang lengkap untuk mendukung kegiatan rekreasi dan
                     prestasi. Ayo, eksplor sekarang juga dan lakukan reservasi untuk pengalaman terbaik Anda!</p>
             </div>
-
         </div>
+
         <div class="card container border-0 bg-white">
             <div class="card-header border-0 bg-white">
                 <ul class="nav nav-pills card-header-pills float-end">
@@ -281,157 +281,60 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="card-body tab-content container container " id="myTabContent">
-                <!-- Prasarana Tab -->
-                <div class="tab-pane fade show active" id="prasarana" role="tabpanel">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-                        @foreach ($facilities as $facility)
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="{{ asset('storage/' . $facility->banner) }}"
-                                        class="card-img-top card-img-fixed " alt="{{ $facility->name }}">
-                                    <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                        style="margin-bottom:0; ">
-                                        <div class="text-container">
-                                            <p class="fs-4">{{ $facility->name }}</p>
+            <div class="card-body tab-content container" id="myTabContent">
+                <div class="tab-pane fade" id="prasarana" role="tabpanel">
+                    <div id="equipments-container">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                            @foreach ($facilities as $facility)
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <img src="{{ asset('storage/' . $facility->banner) }}"
+                                            class="card-img-top card-img-fixed" alt="{{ $facility->name }}">
+                                        <div class="card-body d-flex justify-content-lg-between align-items-center"
+                                            style="margin-bottom:0;">
+                                            <div class="text-container">
+                                                <p class="fs-4">{{ $facility->name }}</p>
+                                            </div>
+                                            <div class="button-container m-3  ms-auto">
+                                                <a href="{{ route('landing.reservasi.show', $facility->id) }}"
+                                                    class="custom-btn">Detail</a>
+                                            </div>
                                         </div>
-                                        <div class="button-container ml-3">
-                                            <a href="{{ route('landing.reservasi.show', $facility->id) }}"
-                                                class="custom-btn">Detail</a>
+                                        <div class="card-footer">
+                                            <p><i class='bx bx-user'></i>{{ $facility->capacity }}</p>
                                         </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p><i class='bx bx-user'></i>{{ $facility->capacity }}</p>
-                                        <!-- Menggunakan jumlah pengguna jika ada -->
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-
-
-                <!-- Sarana Tab -->
-                <div class="tab-pane fade" id="sarana" role="tabpanel">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('img/bola.jpg') }}" class="card-img-top card-img-fixed"
-                                    alt="Ruang Kelas A">
-                                <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                    style="margin-bottom:0; ">
-                                    <div class="text-container">
-                                        <p class="fs-4">bola</p>
-                                    </div>
-                                    <div class="button-container ml-3">
-                                        <a href="http://" class="custom-btn">Detail</a>
+                <div class="tab-pane fade show active" id="sarana" role="tabpanel">
+                    <div id="facilities-container">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                            @foreach ($equipments as $equipment)
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <img src="{{ asset('storage/' . $equipment->image) }}"
+                                            class="card-img-top card-img-fixed" alt="{{ $equipment->name }}">
+                                        <div class="card-body d-flex justify-content-lg-between align-items-center"
+                                            style="margin-bottom:0;">
+                                            <div class="text-container">
+                                                <p class="fs-4">{{ $equipment->name }}</p>
+                                            </div>
+                                            <div class="button-container m-3  ms-auto">
+                                                <a href="{{ route('landing.reservasi.show', $equipment->id) }}"
+                                                    class="custom-btn">Detail</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <p><i class='bx bx-user'></i>{{ $equipment->quantity }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <p><i class='bx bx-user'></i>26</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('img/basket.jpg') }}" class="card-img-top card-img-fixed"
-                                    alt="Ruang Kelas A">
-                                <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                    style="margin-bottom:0; ">
-                                    <div class="text-container">
-                                        <p class="fs-4">Basket</p>
-                                    </div>
-                                    <div class="button-container ml-3">
-                                        <a href="http://" class="custom-btn">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <p><i class='bx bx-user'></i>26</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('img/tenis.jpg') }}" class="card-img-top card-img-fixed"
-                                    alt="Ruang Kelas A">
-                                <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                    style="margin-bottom:0; ">
-                                    <div class="text-container">
-                                        <p class="fs-4">Tenis</p>
-                                    </div>
-                                    <div class="button-container ml-3">
-                                        <a href="http://" class="custom-btn">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <p><i class='bx bx-user'></i>26</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('img/bola.jpg') }}" class="card-img-top card-img-fixed"
-                                    alt="Ruang Kelas A">
-                                <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                    style="margin-bottom:0; ">
-                                    <div class="text-container">
-                                        <p class="fs-4">bola</p>
-                                    </div>
-                                    <div class="button-container ml-3">
-                                        <a href="http://" class="custom-btn">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <p><i class='bx bx-user'></i>26</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('img/basket.jpg') }}" class="card-img-top card-img-fixed"
-                                    alt="Ruang Kelas A">
-                                <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                    style="margin-bottom:0; ">
-                                    <div class="text-container">
-                                        <p class="fs-4">Basket</p>
-                                    </div>
-                                    <div class="button-container ml-3">
-                                        <a href="http://" class="custom-btn">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <p><i class='bx bx-user'></i>26</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('img/tenis.jpg') }}" class="card-img-top card-img-fixed"
-                                    alt="Ruang Kelas A">
-                                <div class="card-body d-flex justify-content-lg-between align-items-center"
-                                    style="margin-bottom:0; ">
-                                    <div class="text-container">
-                                        <p class="fs-4">Tenis</p>
-                                    </div>
-                                    <div class="button-container ml-3">
-                                        <a href="http://" class="custom-btn">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <p><i class='bx bx-user'></i>26</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

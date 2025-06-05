@@ -21,7 +21,7 @@
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>NO</th>
                                 <th>Nama Fasilitas</th>
                                 <th>lokasi</th>
                                 <th>kapasitas</th>

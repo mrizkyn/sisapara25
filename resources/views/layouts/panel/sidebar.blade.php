@@ -78,9 +78,17 @@
                 <li class="item">
                     <a href="{{ route('admin.facilities.index') }}" class="nav_link">
                         <span class="navlink_icon">
-                            <i class="bx bx-grid-alt"></i>
+                            <i class="bx bx-building-house"></i>
                         </span>
                         <span class="navlink">Prasarana</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ route('admin.equipments.index') }}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-football"></i>
+                        </span>
+                        <span class="navlink">Sarana</span>
                     </a>
                 </li>
                 <li class="item">
