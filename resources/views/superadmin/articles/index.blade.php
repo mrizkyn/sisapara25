@@ -1,10 +1,8 @@
 @extends('layouts.panel.main')
-
 @section('main')
     @include('superadmin.articles.delete')
     <div class="container-fluid py-4">
         <h2 class="mb-4 fw-bold  text-center">📋 Manajemen Artikel</h2>
-
         <div class="card  border-0">
             <div class="card-header text-white fw-semibold ">
                 <div class="d-flex justify-content-between align-items-center">
@@ -33,7 +31,6 @@
             </div>
         </div>
     </div>
-    {{-- DataTables Init --}}
     @push('script')
         <script>
             $(document).ready(function() {

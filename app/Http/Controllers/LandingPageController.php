@@ -15,7 +15,9 @@ class LandingPageController extends Controller
     {
         $facilities = Facility::select(['banner', 'name'])->inRandomOrder()->take(5)->get();
         $equipments = Equipment::select(['image', 'name'])->inRandomOrder()->take(5)->get();
-        return view('landing.home', compact('facilities', 'equipments'));
+
+        $articles = Article::select(['title', 'slug', 'image', 'content'])->latest()->take(5)->get();
+        return view('landing.home', compact('facilities', 'equipments', 'articles'));
     }
 
     public function informasi()

@@ -1,5 +1,4 @@
 @extends('layouts.panel.main')
-
 @section('main')
     <div class="container mt-4">
         <div class="card shadow-sm">

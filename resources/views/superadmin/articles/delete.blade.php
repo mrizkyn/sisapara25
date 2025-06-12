@@ -6,7 +6,7 @@
     });
 
     $(document).on('click', '.btn-delete', function() {
-        let slug = $(this).data('id'); // asumsi data-id berisi slug
+        let slug = $(this).data('id'); 
 
         Swal.fire({
             title: 'Yakin ingin menghapus?',
