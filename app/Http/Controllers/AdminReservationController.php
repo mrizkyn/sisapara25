@@ -60,24 +60,22 @@ class AdminReservationController extends Controller
 
     public function show($id)
     {
-        $reservation = Reservation::findOrFail($id);
+        $reservation = Reservation::with(['facilityTariff', 'user', 'facility'])->findOrFail($id);
 
         $user = $reservation->user;
         $facility = $reservation->facility;
 
-
         if ($facility->user_id !== Auth::id()) {
             return redirect()->route('admin.reservasi.index')->with('error', 'Anda tidak memiliki akses ke fasilitas ini.');
         }
+
         return view('admin.reservations.show', compact('reservation', 'user', 'facility'));
     }
 
 
     public function verify($id)
     {
-
         $reservation = Reservation::with(['user', 'facility', 'approvedBy'])->findOrFail($id);
-
 
         if ($reservation->status !== 'pending') {
             return redirect()->route('admin.reservasi.index')->with('error', 'Reservasi sudah diproses.');

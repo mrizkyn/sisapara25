@@ -9,7 +9,10 @@ class Reservation extends Model
     protected $fillable = [
         'user_id',
         'facility_id',
-        'date',
+        'facility_tariff_id',
+        'selected_tariff_price',
+        'extra_image',
+        'total_payment',
         'time_start',
         'time_end',
         'purpose',
@@ -26,6 +29,11 @@ class Reservation extends Model
     public function facility()
     {
         return $this->belongsTo(Facility::class);
+    }
+
+    public function facilityTariff()
+    {
+        return $this->belongsTo(FacilityTariff::class);
     }
 
     public function approver()

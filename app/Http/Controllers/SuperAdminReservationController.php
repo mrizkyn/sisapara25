@@ -28,7 +28,6 @@ class SuperAdminReservationController extends Controller
                     $reservations->no = $index + 1;
                     return $reservations;
                 });
-
             return DataTables::of($reservations)
                 ->addColumn('status_label', function ($r) {
                     switch ($r->status) {
@@ -52,50 +51,38 @@ class SuperAdminReservationController extends Controller
                 ->rawColumns(['status_label', 'action'])
                 ->make(true);
         }
-
         return view('superadmin.reservations.index');
     }
 
-
     public function show($id)
     {
-        $reservation = Reservation::findOrFail($id);
+        $reservation = Reservation::with(['facilityTariff', 'user', 'facility'])->findOrFail($id);
         $user = $reservation->user;
         $facility = $reservation->facility;
-
-
-
         return view('superadmin.reservations.show', compact('reservation', 'user', 'facility'));
     }
 
     public function approve(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
-
         if ($reservation->status !== 'verified') {
             return redirect()->route('superadmin.reservasi.index')->with('error', 'Reservasi harus dalam status verified untuk disetujui.');
         }
-
         $reservation->status = 'approved';
         $reservation->final_approved_by = $request->user()->id;
         $reservation->save();
-
         return redirect()->route('superadmin.reservasi.index')->with('success', 'Reservasi telah disetujui oleh superadmin.');
     }
 
-    // Method untuk menolak reservasi
     public function reject(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
-
         if ($reservation->status === 'approved') {
             return redirect()->route('superadmin.reservasi.index')->with('error', 'Reservasi yang sudah disetujui tidak bisa ditolak.');
         }
-
         $reservation->status = 'rejected';
         $reservation->final_approved_by = $request->user()->id;
         $reservation->save();
-
         return redirect()->route('superadmin.reservasi.index')->with('error', 'Reservasi telah ditolak oleh superadmin.');
     }
 }

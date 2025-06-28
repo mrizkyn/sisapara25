@@ -10,15 +10,26 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-semibold">Nama Pengguna</label>
+                            <label class="col-sm-4 col-form-label fw-semibold">Nama Pengaju/Pengguna</label>
                             <div class="col-sm-8">
                                 <div class="form-control-plaintext">{{ $user->name }}</div>
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold">Fasilitas</label>
                             <div class="col-sm-8">
                                 <div class="form-control-plaintext">{{ $facility->name ?? '-' }}</div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold">Kategori</label>
+                            <div class="col-sm-8">
+                                <div class="form-control-plaintext">
+                                    {{ $reservation->facilityTariff->rental_type ?? '-' }} -
+                                    {{ $reservation->facilityTariff->day_type ?? '-' }} -
+                                    {{ $reservation->facilityTariff->time_type ?? '-' }}
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -44,15 +55,36 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold">Total yang harus di bayar</label>
+                            <div class="col-sm-8">
+                                <div class="form-control-plaintext">
+                                    Rp{{ $reservation->total_payment }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold">Bukti Transaksi</label>
                             <div class="col-sm-8">
                                 @if ($reservation->image)
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
                                         <img src="{{ asset('storage/' . $reservation->image) }}" class="img-fluid"
-                                            alt="Bukti Transaksi" style="max-height: 300px; object-fit: contain;">
+                                            alt="Bukti Transaksi" style="height: 300px; object-fit: contain;">
                                     </a>
                                 @else
                                     <span class="text-muted fst-italic">Belum diunggah</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold">Bukti Tambahan</label>
+                            <div class="col-sm-8">
+                                @if ($reservation->extra_image)
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                        <img src="{{ asset('storage/' . $reservation->extra_image) }}" class="img-fluid"
+                                            alt="Bukti Transaksi" style="height: 300px; object-fit: contain;">
+                                    </a>
+                                @else
+                                    <span class="text-muted fst-italic">-</span>
                                 @endif
                             </div>
                         </div>

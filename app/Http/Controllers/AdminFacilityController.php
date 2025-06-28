@@ -49,6 +49,7 @@ class AdminFacilityController extends Controller
     {
         return view('admin.facilities.create');
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -57,12 +58,16 @@ class AdminFacilityController extends Controller
             'location'       => 'required|string|max:255',
             'type'           => 'required|string|max:100',
             'capacity'       => 'required|integer|min:1',
-            'price'          => 'required|numeric|min:0',
             'account_name'   => 'required|string|max:255',
             'account_number' => 'required|string|max:50',
             'bank_name'      => 'required|string|max:100',
             'banner'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'images.*'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'tariffs'        => 'required|array|min:1',
+            'tariffs.*.rental_type' => 'required|string|max:50',
+            'tariffs.*.day_type' => 'required|in:Weekday,Weekend',
+            'tariffs.*.time_type'  => 'required|in:Siang,Malam',
+            'tariffs.*.price'    => 'required|numeric|min:0',
         ]);
 
         $validated['user_id'] = $request->user()->id;
@@ -79,22 +84,30 @@ class AdminFacilityController extends Controller
             $validated['images'] = json_encode($galleryImages);
         }
 
-        Facility::create($validated);
+        $facility = Facility::create($validated);
 
-        return to_route('admin.facilities.index')
-            ->with('success', 'Fasilitas berhasil ditambahkan.');
+        foreach ($request->tariffs as $tariff) {
+            $facility->tariffs()->create([
+                'rental_type'  => $tariff['rental_type'],
+                'day_type'  => $tariff['day_type'],
+                'time_type'   => $tariff['time_type'],
+                'price'     => $tariff['price'],
+            ]);
+        }
+        return to_route('admin.facilities.index')->with('success', 'Fasilitas dan tarif berhasil ditambahkan.');
     }
 
     public function show($id)
     {
-        $facility = Facility::findOrFail($id);
+        $facility = Facility::with('tariffs')->findOrFail($id);
 
         if ($facility->user_id !== Auth::id()) {
             return redirect()->route('admin.facilities.index')
                 ->with('error', 'Anda tidak memiliki izin untuk melihat fasilitas ini.');
         }
 
-        return view('admin.facilities.show', compact('facility'));
+        $tariffGroups = $facility->tariffs->groupBy('rental_type');
+        return view('admin.facilities.show', compact('facility', 'tariffGroups'));
     }
 
     public function edit($id)
@@ -102,6 +115,74 @@ class AdminFacilityController extends Controller
         $facility = Facility::findOrFail($id);
         return view('admin.facilities.edit', compact('facility'));
     }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $facility = Facility::findOrFail($id);
+
+    //     if ($facility->user_id !== $request->user()->id) {
+    //         return redirect()->route('admin.facilities.index')
+    //             ->with('error', 'Anda tidak memiliki izin untuk mengupdate fasilitas ini.');
+    //     }
+
+    //     $validated = $request->validate([
+    //         'name'           => 'required|string|max:255',
+    //         'description'    => 'required|string',
+    //         'location'       => 'required|string|max:255',
+    //         'type'           => 'required|string|max:100',
+    //         'capacity'       => 'required|integer|min:1',
+    //         'account_name'   => 'required|string|max:255',
+    //         'account_number' => 'required|string|max:50',
+    //         'bank_name'      => 'required|string|max:100',
+    //         'banner'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    //         'images.*'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    //         'tariffs'        => 'required|array|min:1',
+    //         'tariffs.*.rental_type' => 'required|string|max:50',
+    //         'tariffs.*.day_type'    => 'required|in:Weekday,Weekend',
+    //         'tariffs.*.time_type'   => 'required|in:Siang,Malam',
+    //         'tariffs.*.price'       => 'required|numeric|min:0',
+    //     ]);
+
+    //     $validated['user_id'] = $request->user()->id;
+
+    //     if ($request->hasFile('banner')) {
+    //         if ($facility->banner && Storage::disk('public')->exists($facility->banner)) {
+    //             Storage::disk('public')->delete($facility->banner);
+    //         }
+    //         $validated['banner'] = $this->processImage($request->file('banner'));
+    //     }
+
+    //     if ($request->hasFile('images')) {
+    //         if ($facility->images) {
+    //             foreach (json_decode($facility->images) as $oldImage) {
+    //                 if (Storage::disk('public')->exists($oldImage)) {
+    //                     Storage::disk('public')->delete($oldImage);
+    //                 }
+    //             }
+    //         }
+
+    //         $galleryImages = [];
+    //         foreach ($request->file('images') as $img) {
+    //             $galleryImages[] = $this->processImage($img);
+    //         }
+    //         $validated['images'] = json_encode($galleryImages);
+    //     }
+
+    //     $facility->update($validated);
+
+    //     $facility->tariffs()->delete();
+
+    //     foreach ($request->tariffs as $tariff) {
+    //         $facility->tariffs()->create([
+    //             'rental_type' => $tariff['rental_type'],
+    //             'day_type'    => $tariff['day_type'],
+    //             'time_type'   => $tariff['time_type'],
+    //             'price'       => $tariff['price'],
+    //         ]);
+    //     }
+    //     return redirect()->route('admin.facilities.index')->with('success', 'Fasilitas berhasil diperbarui.');
+    // }
+
 
     public function update(Request $request, $id)
     {
@@ -118,12 +199,17 @@ class AdminFacilityController extends Controller
             'location'       => 'required|string|max:255',
             'type'           => 'required|string|max:100',
             'capacity'       => 'required|integer|min:1',
-            'price'          => 'required|numeric|min:0',
             'account_name'   => 'required|string|max:255',
             'account_number' => 'required|string|max:50',
             'bank_name'      => 'required|string|max:100',
             'banner'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'images.*'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'tariffs'        => 'required|array|min:1',
+            'tariffs.*.id'           => 'nullable|integer|exists:facility_tariffs,id',
+            'tariffs.*.rental_type' => 'required|string|max:50',
+            'tariffs.*.day_type'    => 'required|in:Weekday,Weekend',
+            'tariffs.*.time_type'   => 'required|in:Siang,Malam',
+            'tariffs.*.price'       => 'required|numeric|min:0',
         ]);
 
         $validated['user_id'] = $request->user()->id;
@@ -138,7 +224,9 @@ class AdminFacilityController extends Controller
         if ($request->hasFile('images')) {
             if ($facility->images) {
                 foreach (json_decode($facility->images) as $oldImage) {
-                    Storage::disk('public')->delete($oldImage);
+                    if (Storage::disk('public')->exists($oldImage)) {
+                        Storage::disk('public')->delete($oldImage);
+                    }
                 }
             }
 
@@ -151,9 +239,36 @@ class AdminFacilityController extends Controller
 
         $facility->update($validated);
 
-        return redirect()->route('admin.facilities.index')
-            ->with('success', 'Fasilitas berhasil diperbarui.');
+        $tariffIds = [];
+
+        foreach ($request->tariffs as $tariffData) {
+            if (!empty($tariffData['id'])) {
+                $tariff = $facility->tariffs()->where('id', $tariffData['id'])->first();
+                if ($tariff) {
+                    $tariff->update([
+                        'rental_type' => $tariffData['rental_type'],
+                        'day_type'    => $tariffData['day_type'],
+                        'time_type'   => $tariffData['time_type'],
+                        'price'       => $tariffData['price'],
+                    ]);
+                    $tariffIds[] = $tariff->id;
+                }
+            } else {
+                $newTariff = $facility->tariffs()->create([
+                    'rental_type' => $tariffData['rental_type'],
+                    'day_type'    => $tariffData['day_type'],
+                    'time_type'   => $tariffData['time_type'],
+                    'price'       => $tariffData['price'],
+                ]);
+                $tariffIds[] = $newTariff->id;
+            }
+        }
+
+        $facility->tariffs()->whereNotIn('id', $tariffIds)->delete();
+
+        return redirect()->route('admin.facilities.index')->with('success', 'Fasilitas berhasil diperbarui.');
     }
+
 
     public function destroy(Request $request, $id)
     {
@@ -161,6 +276,16 @@ class AdminFacilityController extends Controller
 
         if ($facility->user_id !== $request->user()->id) {
             return response()->json(['error' => 'Anda tidak memiliki izin untuk menghapus fasilitas ini.'], 403);
+        }
+
+        $hasActiveReservation = $facility->reservations()
+            ->whereIn('status', ['pending', 'verified'])
+            ->exists();
+
+        if ($hasActiveReservation) {
+            return response()->json([
+                'error' => 'Fasilitas ini tidak bisa dihapus karena masih memiliki reservasi yang belum selesai (pending atau verified).'
+            ], 400);
         }
 
         if ($facility->banner && Storage::disk('public')->exists($facility->banner)) {
@@ -189,7 +314,6 @@ class AdminFacilityController extends Controller
 
         return response()->json(['success' => 'Fasilitas dan peralatan terkait berhasil dihapus.']);
     }
-
 
     private function processImage($image)
     {

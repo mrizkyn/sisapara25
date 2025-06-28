@@ -1,6 +1,7 @@
 @extends('layouts.user.main')
 @section('title', '| Reservasi')
-@section('main-content')
+
+@push('css')
     <style>
         .hero-reservasi {
             background-color: #016974;
@@ -26,7 +27,6 @@
             margin-bottom: 20px;
         }
 
-
         .btn-reserve {
             margin-top: 20px;
             border: 1px solid #F3F3F2;
@@ -46,8 +46,7 @@
             margin-top: 40px;
             border-radius: 5px
         }
-    </style>
-    <style>
+
         #calendar {
             max-width: 100%;
             margin-top: 30px;
@@ -181,10 +180,48 @@
                 font-size: 14px;
             }
         }
+
+        .card-img-fixed {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .nav-pills .nav-link {
+            border: 1px solid black;
+            color: black;
+            border-radius: 15px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #016974;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .col .card {
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        }
+
+        .custom-btn {
+            display: inline-block;
+            border: 1px solid #016974;
+            border-radius: 50px;
+            padding: 5px 30px;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-btn:hover {
+            background-color: #016974;
+            color: #F3F3F2;
+        }
     </style>
+@endpush
 
-
-    <section class="hero-reservasi py-4">
+@section('main-content')
+    <section class="hero-reservasi py-5">
         <div class="container">
             <div class="row align-items-center min-vh-100">
                 <div class="col-lg-6 text-left-block ">
@@ -213,52 +250,12 @@
                 </div>
                 <div class="col-lg-6 image-right position-relative">
                     <div id="calendar"></div>
-
-                    {{-- <img src="{{ asset('img/calendar.jpg') }}" alt="calendar" class="img-fluid"> --}}
                 </div>
             </div>
         </div>
     </section>
 
     <section>
-        <style>
-            .card-img-fixed {
-                height: 200px;
-                object-fit: cover;
-            }
-
-            .nav-pills .nav-link {
-                border: 1px solid black;
-                color: black;
-                border-radius: 15px;
-            }
-
-            .nav-pills .nav-link.active {
-                background-color: #016974;
-                color: white;
-                border-radius: 15px;
-            }
-
-            .col .card {
-                box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-            }
-
-            .custom-btn {
-                display: inline-block;
-                border: 1px solid #016974;
-                border-radius: 50px;
-                padding: 5px 30px;
-                color: black;
-                text-align: center;
-                text-decoration: none;
-                transition: background-color 0.3s ease;
-            }
-
-            .custom-btn:hover {
-                background-color: #016974;
-                color: #F3F3F2;
-            }
-        </style>
         <div class="container">
             <div class="text-start mt-5">
                 <small class="text-muted">// Reservasi Sarana dan Prasarana</small>
@@ -268,7 +265,6 @@
                     prestasi. Ayo, eksplor sekarang juga dan lakukan reservasi untuk pengalaman terbaik Anda!</p>
             </div>
         </div>
-
         <div class="card container border-0 bg-white">
             <div class="card-header border-0 bg-white">
                 <ul class="nav nav-pills card-header-pills float-end">
@@ -282,7 +278,7 @@
                 </ul>
             </div>
             <div class="card-body tab-content container" id="myTabContent">
-                <div class="tab-pane fade" id="prasarana" role="tabpanel">
+                <div class="tab-pane fade show active" id="prasarana" role="tabpanel">
                     <div id="equipments-container">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
                             @foreach ($facilities as $facility)
@@ -295,7 +291,7 @@
                                             <div class="text-container">
                                                 <p class="fs-4">{{ $facility->name }}</p>
                                             </div>
-                                            <div class="button-container m-3  ms-auto">
+                                            <div class="button-container m-3 ms-auto">
                                                 <a href="{{ route('landing.reservasi.show', $facility->id) }}"
                                                     class="custom-btn">Detail</a>
                                             </div>
@@ -309,7 +305,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show active" id="sarana" role="tabpanel">
+                <div class="tab-pane fade" id="sarana" role="tabpanel">
                     <div id="facilities-container">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
                             @foreach ($equipments as $equipment)
@@ -321,10 +317,6 @@
                                             style="margin-bottom:0;">
                                             <div class="text-container">
                                                 <p class="fs-4">{{ $equipment->name }}</p>
-                                            </div>
-                                            <div class="button-container m-3  ms-auto">
-                                                <a href="{{ route('landing.reservasi.show', $equipment->id) }}"
-                                                    class="custom-btn">Detail</a>
                                             </div>
                                         </div>
                                         <div class="card-footer">
@@ -339,105 +331,79 @@
             </div>
         </div>
     </section>
-    @push('script')
-        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
-        {{-- <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const calendarEl = document.getElementById('calendar');
-                const calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    themeSystem: 'standard',
-                    locale: 'id',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    events: '{{ route('jadwal.reservasi') }}',
-                    eventDidMount: function(info) {
-                        // Tooltip untuk menampilkan detail lebih banyak
-                        const purpose = info.event.extendedProps.purpose || '-';
-                        const facility = info.event.extendedProps.facility || 'Fasilitas tidak diketahui';
-                        const tooltip =
-                            `${info.event.title}\n${facility}\n${info.event.start.toLocaleString()} - ${info.event.end.toLocaleString()}\nTujuan: ${purpose}`;
-                        info.el.setAttribute("title", tooltip);
-                    },
-                    windowResize: function(view) {
-                        if (window.innerWidth < 768) {
-                            calendar.changeView('timeGridWeek');
-                        } else {
-                            calendar.changeView('dayGridMonth');
-                        }
-                    }
 
-                });
-                calendar.render();
-            }); --}}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const calendarEl = document.getElementById('calendar');
-
-                const calendar = new FullCalendar.Calendar(calendarEl, {
-                    themeSystem: 'bootstrap5',
-                    locale: 'id',
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    events: '{{ route('jadwal.reservasi') }}',
-
-                    eventDidMount: function(info) {
-                        const title = info.event.title || '-';
-                        const facility = info.event.extendedProps.facility || '-';
-
-                        const startDate = info.event.start;
-                        const endDate = info.event.end;
-
-                        const tanggalMulai = startDate.toLocaleDateString('id-ID', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        const tanggalSelesai = endDate.toLocaleDateString('id-ID', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-
-                        const jamMulai = startDate.toLocaleTimeString('id-ID', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-                        const jamSelesai = endDate.toLocaleTimeString('id-ID', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-
-                        const tooltipContent = `
-                <strong>Peminjam:</strong> ${title}<br>
-                <strong>Fasilitas:</strong> ${facility}<br>
-                <strong>Tanggal:</strong> ${tanggalMulai} - ${tanggalSelesai}<br>
-                <strong>Waktu:</strong> ${jamMulai} - ${jamSelesai}`;
-
-                        info.el.setAttribute('data-bs-toggle', 'tooltip');
-                        info.el.setAttribute('data-bs-html', 'true');
-                        info.el.setAttribute('title', tooltipContent);
-
-                        new bootstrap.Tooltip(info.el);
-                    },
-
-                    windowResize: function() {
-                        calendar.changeView(window.innerWidth < 768 ? 'timeGridWeek' : 'dayGridMonth');
-                    }
-                });
-
-                calendar.render();
-            });
-        </script>
-    @endpush
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const triggerTab = new bootstrap.Tab(document.querySelector('#prasarana-tab'));
+            triggerTab.show();
+        });
+    </script>
 @endsection
+
+@push('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                themeSystem: 'bootstrap5',
+                locale: 'id',
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: '{{ route('jadwal.reservasi') }}',
+
+                eventDidMount: function(info) {
+                    const title = info.event.title || '-';
+                    const facility = info.event.extendedProps.facility || '-';
+
+                    const startDate = info.event.start;
+                    const endDate = info.event.end;
+
+                    const tanggalMulai = startDate.toLocaleDateString('id-ID', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    const tanggalSelesai = endDate.toLocaleDateString('id-ID', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    const jamMulai = startDate.toLocaleTimeString('id-ID', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    const jamSelesai = endDate.toLocaleTimeString('id-ID', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    const tooltipContent = `
+                        <strong>Peminjam:</strong> ${title}<br>
+                        <strong>Fasilitas:</strong> ${facility}<br>
+                        <strong>Tanggal:</strong> ${tanggalMulai} - ${tanggalSelesai}<br>
+                        <strong>Waktu:</strong> ${jamMulai} - ${jamSelesai}`;
+
+                    info.el.setAttribute('data-bs-toggle', 'tooltip');
+                    info.el.setAttribute('data-bs-html', 'true');
+                    info.el.setAttribute('title', tooltipContent);
+
+                    new bootstrap.Tooltip(info.el);
+                },
+
+                windowResize: function() {
+                    calendar.changeView(window.innerWidth < 768 ? 'timeGridWeek' : 'dayGridMonth');
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+@endpush

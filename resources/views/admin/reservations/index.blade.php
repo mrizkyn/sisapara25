@@ -3,7 +3,12 @@
 @section('main')
     <div class="container mt-4">
         <h3 class="mb-4 fw-bold text-center">Data Reservasi</h3>
-        <div class="card shadow-sm">
+        <div class="card  border-0">
+            <div class="card-header text-white fw-semibold ">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-black">Data Reservasi</span>
+                </div>
+            </div>
             <div class="card-body">
                 <table class="table table-bordered" id="reservasiTable">
                     <thead>

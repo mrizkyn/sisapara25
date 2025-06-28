@@ -30,7 +30,10 @@ class Facility extends Model
     {
         return $this->hasMany(Equipment::class);
     }
-
+    public function tariffs()
+    {
+        return $this->hasMany(FacilityTariff::class);
+    }
     public function reservations()
     {
         return $this->hasMany(Reservation::class);

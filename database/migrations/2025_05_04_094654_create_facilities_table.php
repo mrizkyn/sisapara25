@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->string('banner')->nullable();
             $table->json('images')->nullable();
-            $table->decimal('price', 12, 2); 
+            // $table->decimal('price', 12, 2); 
             $table->string('account_name');
             $table->string('account_number');
             $table->string('bank_name');

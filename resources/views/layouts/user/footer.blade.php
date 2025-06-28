@@ -21,10 +21,10 @@
             <div class="col-md-2 mb-4">
                 <h6 class="fw-bold">Navigasi</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#beranda" class="text-white text-decoration-none">Beranda</a></li>
-                    <li><a href="#informasi" class="text-white text-decoration-none">Informasi</a></li>
-                    <li><a href="#reservasi" class="text-white text-decoration-none">Reservasi</a></li>
-                    <li><a href="#faq" class="text-white text-decoration-none">FAQ</a></li>
+                    <li><a href="{{ route('home') }}" class="text-white text-decoration-none">Beranda</a></li>
+                    <li><a href="{{ route('informasi') }}" class="text-white text-decoration-none">Informasi</a></li>
+                    <li><a href="{{ route('reservasi') }}" class="text-white text-decoration-none">Reservasi</a></li>
+                    <li><a href="{{ route('faq') }}" class="text-white text-decoration-none">FAQ</a></li>
                 </ul>
             </div>
 

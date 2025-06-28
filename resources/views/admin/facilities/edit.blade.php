@@ -58,15 +58,6 @@
                             <div class="invalid-feedback">Kapasitas wajib diisi dan harus berupa angka.</div>
                         @enderror
                     </div>
-                    <!-- Harga -->
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Harga Sewa (per jam)</label>
-                        <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror"
-                            id="price" name="price" value="{{ old('price', $facility->price) }}" required>
-                        @error('price')
-                            <div class="invalid-feedback">Harga wajib diisi.</div>
-                        @enderror
-                    </div>
 
                     <div class="mb-3">
                         <label for="account_name" class="form-label">Nama Pemilik Rekening</label>
@@ -115,8 +106,8 @@
 
                     <div class="mb-3">
                         <label for="images" class="form-label">Galeri Gambar (bisa lebih dari satu)</label>
-                        <input type="file" class="form-control @error('images.*') is-invalid @enderror"
-                            id="images" name="images[]" multiple accept="image/*">
+                        <input type="file" class="form-control @error('images.*') is-invalid @enderror" id="images"
+                            name="images[]" multiple accept="image/*">
                         @error('images.*')
                             <div class="invalid-feedback">File gambar tidak valid.</div>
                         @enderror
@@ -136,6 +127,61 @@
                         @endif
                     </div>
 
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Tarif Per Kategori</label>
+                        <div id="tariff-container">
+                            @foreach ($facility->tariffs as $index => $tariff)
+                                <div class="row g-2 tariff-item mb-3">
+                                    <input type="hidden" name="tariffs[{{ $index }}][id]"
+                                        value="{{ $tariff->id }}">
+                                    <div class="col-md-2">
+                                        <select name="tariffs[{{ $index }}][rental_type]" class="form-control"
+                                            required>
+                                            <option value="">Pilih Kategori</option>
+                                            <option value="Umum"
+                                                {{ $tariff->rental_type === 'Umum' ? 'selected' : '' }}>Umum</option>
+                                            <option value="Sosial"
+                                                {{ $tariff->rental_type === 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                                            <option value="Pembinaan"
+                                                {{ $tariff->rental_type === 'Pembinaan' ? 'selected' : '' }}>Pembinaan
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select name="tariffs[{{ $index }}][day_type]" class="form-control"
+                                            required>
+                                            <option value="">Hari</option>
+                                            <option value="Weekday"
+                                                {{ $tariff->day_type === 'Weekday' ? 'selected' : '' }}>Weekday</option>
+                                            <option value="Weekend"
+                                                {{ $tariff->day_type === 'Weekend' ? 'selected' : '' }}>Weekend</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select name="tariffs[{{ $index }}][time_type]" class="form-control"
+                                            required>
+                                            <option value="">Sesi</option>
+                                            <option value="Siang" {{ $tariff->time_type === 'Siang' ? 'selected' : '' }}>
+                                                Siang</option>
+                                            <option value="Malam" {{ $tariff->time_type === 'Malam' ? 'selected' : '' }}>
+                                                Malam</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" name="tariffs[{{ $index }}][price]"
+                                            class="form-control"
+                                            value="{{ old("tariffs.$index.price", $tariff->price) }}"
+                                            placeholder="Harga (Rp)" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger remove-tariff w-100">Hapus</button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" id="add-tariff">+ Tambah Tarif</button>
+                    </div>
+
                     <div class="d-flex">
                         <button type="submit" class="btn btn-success ms-auto">Update</button>
                     </div>
@@ -143,4 +189,52 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let tariffIndex = {{ $facility->tariffs->count() }};
+        document.getElementById('add-tariff').addEventListener('click', function() {
+            const container = document.getElementById('tariff-container');
+
+            const html = `
+        <div class="row g-2 tariff-item mb-3">
+            <div class="col-md-2">
+                <select name="tariffs[${tariffIndex}][rental_type]" class="form-control" required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="Umum">Umum</option>
+                    <option value="Sosial">Sosial</option>
+                    <option value="Pembinaan">Pembinaan</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="tariffs[${tariffIndex}][day_type]" class="form-control" required>
+                    <option value="">Hari</option>
+                    <option value="Weekday">Weekday</option>
+                    <option value="Weekend">Weekend</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="tariffs[${tariffIndex}][time_type]" class="form-control" required>
+                    <option value="">Sesi</option>
+                    <option value="Siang">Siang</option>
+                    <option value="Malam">Malam</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="tariffs[${tariffIndex}][price]" class="form-control" placeholder="Harga (Rp)" required>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger remove-tariff w-100">Hapus</button>
+            </div>
+        </div>`;
+            container.insertAdjacentHTML('beforeend', html);
+            tariffIndex++;
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove-tariff')) {
+                e.target.closest('.tariff-item').remove();
+            }
+        });
+    </script>
+
 @endsection

@@ -348,9 +348,13 @@
 </style>
 
 <div class="cusstom-navbar">
-    <a href="#" class="logo">
+    {{-- <a href="#" class="logo">
         <img src="logo.png" alt="Logo" class="logo-img">
-    </a>
+
+    </a> --}}
+    <div class="fw-bold fs-5">
+        SISPARA
+    </div>
     <ul class="cusstom-nav-links" id="nav-links">
         <li class="login-mobile">
             @php

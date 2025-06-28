@@ -22,6 +22,16 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold">Kategori</label>
+                            <div class="col-sm-8">
+                                <div class="form-control-plaintext">
+                                    {{ $reservation->facilityTariff->rental_type ?? '-' }} -
+                                    {{ $reservation->facilityTariff->day_type ?? '-' }} -
+                                    {{ $reservation->facilityTariff->time_type ?? '-' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold">Waktu Mulai</label>
                             <div class="col-sm-8">
                                 <div class="form-control-plaintext">

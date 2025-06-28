@@ -20,6 +20,7 @@ Route::get('/reservasi', [LandingPageController::class, 'reservasi'])->name('res
 Route::get('/jadwal-reservasi', [LandingPageController::class, 'jadwalReservasi'])->name('jadwal.reservasi');
 
 Route::get('/reservasi/{id}', [LandingPageController::class, 'reservasiShow'])->name('landing.reservasi.show');
+Route::get('/dashboard/events', [DashboardController::class, 'getAdminEvents'])->name('dashboard.events');
 Route::get('/informasi', [LandingPageController::class, 'informasi'])->name('informasi');
 Route::get('informasi/article/{slug}', [LandingPageController::class, 'showArticle'])->name('article.show');
 
@@ -39,6 +40,9 @@ Route::middleware('guest')->prefix('auth')->group(function () {
 // ROUTE UNTUK SUPER ADMIN
 Route::middleware('superAdmin')->prefix('superadmin')->name('superadmin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'speradminDashboard'])->name('dashboard');
+    Route::get('/dashboard/recent-reservations', [DashboardController::class, 'getSuperAdminRecentReservations'])->name('dashboard.recent-reservations');
+    Route::get('/dashboard/events', [DashboardController::class, 'getSuperAdminEvents'])->name('dashboard.events');
+
     // Route untuk Admin Management
     Route::prefix('admin-management')->name('admin-management.')->group(function () {
         Route::get('/', [SuperAdminUserController::class, 'index'])->name('index');
@@ -74,6 +78,9 @@ Route::middleware('superAdmin')->prefix('superadmin')->name('superadmin.')->grou
 // ROUTE UNTUK ADMIN
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
+    Route::get('/dashboard/recent-reservations', [DashboardController::class, 'getRecentReservations'])->name('dashboard.recent-reservations');
+    Route::get('/dashboard/events', [DashboardController::class, 'getAdminEvents'])->name('dashboard.events');
+
 
     // Route untuk Profile
     Route::prefix('profiles')->name('profiles.')->group(function () {
@@ -117,6 +124,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 // Route untuk User
 Route::middleware('user')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
+    Route::get('/jadwal-reservasi', [DashboardController::class, 'getUserEvents'])->name('jadwal.reservasi');
 
     Route::get('reservasi', [UserReservationController::class, 'index'])->name('reservasi.index');
     Route::get('reservasi/create', [UserReservationController::class, 'create'])->name('reservasi.create');

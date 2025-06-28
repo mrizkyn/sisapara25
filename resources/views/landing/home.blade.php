@@ -1,9 +1,9 @@
 @extends('layouts.user.main')
-@section('main-content')
+@section('title', '| Home')
+@push('css')
     <style>
         .bg-gray {
             background-color: #f5f5f5;
-            padding: 20px 30px;
         }
 
         .btn-outline-dark {
@@ -68,20 +68,25 @@
                 max-width: 70%;
                 height: 300px;
             }
-
-
         }
     </style>
+@endpush
 
+@section('main-content')
     <section class="hero Patterns">
         <div class="hero-text">
             <h1>SISAPARA</h1>
             <p> Sistem Informasi Sarana dan Prasarana Dispora (SISAPARA) adalah platform digital yang dirancang
                 untuk mempermudah pengelolaan fasilitas dan inventaris sarana dan prasarana olahraga Dispora kota Bandung
-                secara efisien dan
-                transparan.
+                secara efisien dan transparan.
                 Mulai dari peminjaman alat olahraga, gedung olahraga, hingga pelaporan kerusakan.
             </p>
+            <div
+                class="d-flex flex-wrap justify-content-start justify-content-md-start justify-content-center align-items-center gap-3 mb-3">
+                <img src="{{ asset('img/logo1.png') }}" alt="Logo 1" style="max-height: 60px; width: auto;">
+                <img src="{{ asset('img/logo2.png') }}" alt="Logo 2" style="max-height: 60px; width: auto;">
+                <img src="{{ asset('img/logo3.png') }}" alt="Logo 3" style="max-height: 60px; width: auto;">
+            </div>
             <div>
                 <button class="hero-btn"><i class="animation"></i>selengkapnya<i class="animation"></i>
                 </button>
@@ -91,25 +96,20 @@
             <div class="image-columns">
                 <div class="scroll-column scroll-up">
                     <div class="scroll-track">
-                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
-                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
-                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
-                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
-                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
-                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
-                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
-                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
-                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        @for ($i = 0; $i < 3; $i++)
+                            <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                            <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt="Image 2" /></div>
+                            <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        @endfor
                     </div>
                 </div>
                 <div class="scroll-column scroll-down">
                     <div class="scroll-track">
-                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
-                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
-                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
-                        <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
-                        <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt=" Image 2" /></div>
-                        <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        @for ($i = 0; $i < 2; $i++)
+                            <div class="image-box"><img src="{{ asset('img/bola.jpg') }}" alt="Image 1" /></div>
+                            <div class="image-box"><img src="{{ asset('img/basket.jpg') }}" alt="Image 2" /></div>
+                            <div class="image-box"><img src="{{ asset('img/raket.jpg') }}" alt="Image 3" /></div>
+                        @endfor
                     </div>
                 </div>
             </div>
@@ -139,21 +139,18 @@
 
             <div class="col-md-5 d-flex flex-column justify-content-between" style="height: 63vh;">
                 <div>
-                    <small class="text-muted">About Us</small>
+                    <small class="text-muted">Tentang SISAPARA</small>
                     <h3 class="mt-2" id="main-heading">
-                        Goports – Empowering Your Sports Journey with
-                        <span class="text-danger">Passion</span>,
-                        <span class="text-primary">Innovation</span>, and
-                        <span class="text-secondary">Dedication</span> for Every Athlete’s Ultimate Performance.
+                        SISAPARA – Solusi Digital untuk <span class="text-danger">Reservasi</span> Fasilitas &
+                        <span class="text-primary">Peminjaman</span> Sarana Olahraga Dispora Kota Bandung
                     </h3>
                 </div>
                 <p class="text-muted" id="main-text" style="flex-grow: 1; overflow-y: auto;">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis modi dicta fugiat error, provident porro
-                    odit alias quisquam reiciendis? Cumque natus autem, tempora et velit optio provident repellat eos
-                    maiores. Dignissimos error eaque voluptatem!
+                    SISAPARA adalah platform resmi dari Dispora Kota Bandung yang memudahkan masyarakat, komunitas, dan
+                    lembaga untuk melakukan reservasi fasilitas olahraga serta meminjam sarana penunjang secara daring.
+                    Semua prosesnya mudah, cepat, dan transparan – cukup dari genggaman tangan.
                 </p>
 
-                <!-- Galeri Desktop -->
                 <div class="d-flex overflow-auto gap-3 pt-2 d-none d-md-flex">
                     <div class="flex-shrink-0" style="width: 160px; height: 200px;">
                         <img id="image1" src="{{ asset('img/bet-tenis.jpg') }}" alt="Image 1"
@@ -187,7 +184,7 @@
                 <div class="col-md-8 order-md-1">
                     <div class="mb-4">
                         <small class="text-muted">// Prasarana</small>
-                        <h2 class="fw-bold ">Fasilitas Olahraga Lengkap<br><span style="color: #016974">Dengan
+                        <h2 class="fw-bold">Fasilitas Olahraga Lengkap<br><span style="color: #016974">Dengan
                                 Infrastruktur Modern</span></h2>
                         <p>Kami menyediakan berbagai prasarana seperti lapangan tenis, kolam renang, dan
                             lapangan serbaguna yang dirancang dengan standar tinggi untuk mendukung kegiatan pelatihan,
@@ -232,7 +229,7 @@
                     yang kami sajikan.</p>
             </div>
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper p-5">
                     @foreach ($articles as $article)
                         <div class="swiper-slide">
                             <div class="artikel-card">
@@ -252,63 +249,63 @@
             </div>
         </div>
     </section>
+@endsection
 
-    @push('script')
-        <script>
-            function changeContent(imageId) {
-                var mainImage = document.getElementById('main-image');
-                var mainHeading = document.getElementById('main-heading');
-                var mainText = document.getElementById('main-text');
+@push('script')
+    <script>
+        function changeContent(imageId) {
+            var mainImage = document.getElementById('main-image');
+            var mainHeading = document.getElementById('main-heading');
+            var mainText = document.getElementById('main-text');
 
-                if (imageId === 'image1') {
-                    mainImage.src = document.getElementById('image1').src;
-                    mainHeading.innerHTML =
-                        "Goports - Empowering Your Sports Journey with <span class='text-danger'>Passion</span>, <span class='text-primary'>Innovation</span>, and <span class='text-secondary'>Dedication</span> for Every Athlete’s Ultimate Performance.";
-                    mainText.innerHTML =
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis modi dicta fugiat error, provident porro odit alias quisquam reiciendis? Cumque natus autem, tempora et velit optio provident repellat eos maiores. Dignissimos error eaque voluptatem!";
-                } else if (imageId === 'image2') {
-                    mainImage.src = document.getElementById('image2').src;
-                    Z
-                    mainHeading.innerHTML =
-                        "Goports - Innovating Your Sports Experience with <span class='text-danger'>Growth</span>, <span class='text-primary'>Tech</span>, and <span class='text-secondary'>Excellence</span> for a Smarter Future.";
-                    mainText.innerHTML =
-                        "Discover how Goports enhances your sports journey through cutting-edge technology, advanced analytics, and a passion for helping athletes reach their full potential. Join the revolution today!";
+            if (imageId === 'image1') {
+                mainImage.src = document.getElementById('image1').src;
+                mainHeading.innerHTML =
+                    "SISAPARA – Solusi Digital untuk <span class='text-danger'>Reservasi</span> Fasilitas & <span class='text-primary'>Peminjaman</span> Sarana Olahraga Dispora Kota Bandung";
+                mainText.innerHTML =
+                    "SISAPARA hadir untuk mempermudah proses pemesanan fasilitas olahraga serta peminjaman alat penunjang olahraga di bawah naungan Dispora Kota Bandung. Semua dapat diakses secara praktis, cepat, dan transparan.";
+            } else if (imageId === 'image2') {
+                mainImage.src = document.getElementById('image2').src;
+                mainHeading.innerHTML =
+                    "Dukung Aktivitas Olahraga Masyarakat dengan <span class='text-danger'>Fasilitas Terstandar</span> & <span class='text-primary'>Layanan Terintegrasi</span> di SISAPARA";
+                mainText.innerHTML =
+                    "Melalui SISAPARA, Dispora Kota Bandung menyediakan sarana olahraga yang dapat diakses oleh masyarakat umum, komunitas, hingga instansi. Semua informasi pemesanan tersedia secara daring, aman, dan terkelola dengan baik.";
+            }
+        }
+
+        new Swiper(".mySwiper1", {
+            effect: "cards",
+            grabCursor: true,
+        });
+
+        new Swiper(".mySwiper2", {
+            effect: "cards",
+            grabCursor: true,
+        });
+
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
+            },
+            breakpoints: {
+                576: {
+                    slidesPerView: 1.2
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                992: {
+                    slidesPerView: 3
                 }
             }
-            new Swiper(".mySwiper1", {
-                effect: "cards",
-                grabCursor: true,
-            });
-
-            new Swiper(".mySwiper2", {
-                effect: "cards",
-                grabCursor: true,
-            });
-
-            const swiper = new Swiper(".mySwiper", {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev"
-                },
-                breakpoints: {
-                    576: {
-                        slidesPerView: 1.2
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    992: {
-                        slidesPerView: 3
-                    }
-                }
-            });
-        </script>
-    @endpush
-@endsection
+        });
+    </script>
+@endpush

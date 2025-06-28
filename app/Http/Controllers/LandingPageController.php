@@ -24,7 +24,7 @@ class LandingPageController extends Controller
     {
         $facilities = Facility::select(['name', 'banner', 'capacity'])
             ->inRandomOrder()
-            ->take(6)
+            ->take(5)
             ->get();
 
         $equipments = Equipment::select(['name', 'image'])
@@ -41,7 +41,7 @@ class LandingPageController extends Controller
             ->with('user:id,name')
             ->latest()
             ->skip(1)
-            ->take(7)
+            ->take(6)
             ->get();
 
         return view('landing.informasi', compact('latest', 'others', 'facilities', 'equipments'));
@@ -99,10 +99,12 @@ class LandingPageController extends Controller
 
     public function reservasiShow($id)
     {
-        $facility = Facility::findOrFail($id);
-        return view('landing.reservasi-show', compact('facility'));
-    }
+        $facility = Facility::with('tariffs')->findOrFail($id);
 
+        $tariffGroups = $facility->tariffs->groupBy('rental_type');
+
+        return view('landing.reservasi-show', compact('facility', 'tariffGroups'));
+    }
 
     public function faq()
     {

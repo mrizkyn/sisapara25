@@ -23,7 +23,8 @@
                                             data-image="{{ asset('storage/' . $facility->banner) }}"
                                             data-bank="{{ $facility->bank_name }}"
                                             data-account="{{ $facility->account_number }}"
-                                            data-name="{{ $facility->account_name }}" data-price="{{ $facility->price }}"
+                                            data-name="{{ $facility->account_name }}"
+                                            data-tariffs='@json($facility->tariffs)'
                                             {{ old('facility_id') == $facility->id ? 'selected' : '' }}>
                                             {{ $facility->name }}
                                         </option>
@@ -33,13 +34,18 @@
                                     <div class="invalid-feedback">Fasilitas wajib dipilih.</div>
                                 @enderror
                             </div>
-
+                            <div class="mb-2">
+                                <label for="tariff-select" class="form-label">Pilih kategori</label>
+                                <select id="tariff-select" class="form-select" required>
+                                    <option value="">Pilih kategori...</option>
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <div class="row g-3 align-items-stretch">
                                     <div class="col-md-6 d-flex flex-column">
                                         <label class="form-label">Preview Fasilitas</label>
                                         <div class="border rounded flex-grow-1 d-flex align-items-center justify-content-center"
-                                            style="background-color: #fdfdfd; min-height: 400px; ">
+                                            style="background-color: #fdfdfd; min-height: 400px;">
                                             <img id="facility-preview" src="" alt="Preview Fasilitas"
                                                 class="img-fluid"
                                                 style="width: 100%; height: 400px; display: none; border: 1px solid #ccc; padding: 5px; object-fit: cover;" />
@@ -59,6 +65,8 @@
                                             <p class="mb-0"><strong>Total Bayar:</strong> <span id="total-display">Rp
                                                     0</span></p>
                                             <input type="hidden" name="total_payment" id="total_payment_raw">
+                                            <input type="hidden" name="selected_tariff_price" id="selected_tariff_price">
+                                            <input type="hidden" name="facility_tariff_id" id="facility_tariff_id">
                                         </div>
                                     </div>
                                 </div>
@@ -82,95 +90,104 @@
                                 @error('time_end')
                                     <div class="invalid-feedback">Minimal jarak antara waktu mulai dan selesai adalah 1 jam.
                                     </div>
-                                </div>
-                            @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="purpose" class="form-label">Tujuan</label>
-                        <textarea name="purpose" id="purpose" class="form-control @error('purpose') is-invalid @enderror" rows="3"
-                            placeholder="Contoh: Latihan, Lomba, Kegiatan Mahasiswa">{{ old('purpose') }}</textarea>
-                        @error('purpose')
-                            <div class="invalid-feedback">Tujuan wajib diisi dan tidak boleh kosong.</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Bukti</label>
-                        <input type="file" name="image" id="image"
-                            class="form-control @error('image') is-invalid @enderror">
-                        @error('image')
-                            <div class="invalid-feedback">Bukti pembayaran harus berupa gambar dengan format yang benar.
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
 
-                    <div class="d-flex">
-                        <button type="submit" class="btn btn-success ms-auto">Ajukan Reservasi</button>
+                            <div class="mb-3">
+                                <label for="purpose" class="form-label">Tujuan</label>
+                                <textarea name="purpose" id="purpose" class="form-control @error('purpose') is-invalid @enderror" rows="3">{{ old('purpose') }}</textarea>
+                                @error('purpose')
+                                    <div class="invalid-feedback">Tujuan wajib diisi.</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Bukti Pembayaran</label>
+                                <input type="file" name="image" id="image"
+                                    class="form-control @error('image') is-invalid @enderror">
+                                @error('image')
+                                    <div class="invalid-feedback">File harus berupa gambar valid.</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 d-none" id="additional-image-group">
+                                <label for="extra_image" class="form-label">Surat / Gambar Pendukung</label>
+                                <input type="file" name="extra_image" id="extra_image"
+                                    class="form-control @error('extra_image') is-invalid @enderror">
+                                @error('extra_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-success ms-auto">Ajukan Reservasi</button>
+                            </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
     @push('script')
         <script>
-            // Update preview gambar dan info pembayaran saat fasilitas dipilih
             document.getElementById('facility_id').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-
-                // Image preview
-                const imageUrl = selectedOption.getAttribute('data-image');
+                const selected = this.options[this.selectedIndex];
                 const preview = document.getElementById('facility-preview');
-                if (imageUrl) {
-                    preview.src = imageUrl;
-                    preview.style.display = 'block';
-                } else {
-                    preview.src = '';
-                    preview.style.display = 'none';
+
+                // Preview Gambar
+                const imageUrl = selected.getAttribute('data-image');
+                preview.src = imageUrl || '';
+                preview.style.display = imageUrl ? 'block' : 'none';
+
+                // Bank Info
+                document.getElementById('bank-name').textContent = selected.getAttribute('data-bank') || '-';
+                document.getElementById('account-number').textContent = selected.getAttribute('data-account') || '-';
+                document.getElementById('account-name').textContent = selected.getAttribute('data-name') || '-';
+
+                // Tariff Dropdown
+                const tariffSelect = document.getElementById('tariff-select');
+                tariffSelect.innerHTML = '<option value="">Pilih Kategori...</option>';
+                const tariffsRaw = selected.getAttribute('data-tariffs');
+                try {
+                    const tariffs = JSON.parse(tariffsRaw) || [];
+                    tariffs.forEach(tariff => {
+                        const opt = document.createElement('option');
+                        opt.value = tariff.id;
+                        opt.setAttribute('data-price', tariff.price);
+                        opt.textContent =
+                            `${tariff.day_type} - ${tariff.rental_type} - ${tariff.time_type} - Rp ${parseInt(tariff.price).toLocaleString('id-ID')}`;
+                        tariffSelect.appendChild(opt);
+                    });
+                } catch (e) {
+                    console.error('Tariff JSON parse error:', e);
                 }
 
-                // Informasi pembayaran
-                document.getElementById('bank-name').textContent = selectedOption.getAttribute('data-bank') || '-';
-                document.getElementById('account-number').textContent = selectedOption.getAttribute('data-account') ||
-                    '-';
-                document.getElementById('account-name').textContent = selectedOption.getAttribute('data-name') || '-';
-
-                const price = parseInt(selectedOption.getAttribute('data-price')) || 0;
-                document.getElementById('price-hour').textContent = price.toLocaleString('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                    minimumFractionDigits: 0,
-                });
-
-                // Hitung total bayar jika waktu sudah diisi
-                hitungTotalBayar(price);
+                // Reset harga
+                document.getElementById('price-hour').textContent = 'Rp 0';
+                updateTotalDisplay(0);
             });
 
-            // Flatpickr initialization
+            // document.getElementById('tariff-select').addEventListener('change', triggerRecalculate);
+            document.getElementById('tariff-select').addEventListener('change', function() {
+                triggerRecalculate();
+
+                // Cek apakah kategori adalah "pembinaan" atau "sosial"
+                const selectedText = this.options[this.selectedIndex]?.textContent?.toLowerCase() || '';
+                const showExtra = selectedText.includes('pembinaan') || selectedText.includes('sosial');
+                const extraImageGroup = document.getElementById('additional-image-group');
+                if (extraImageGroup) {
+                    extraImageGroup.classList.toggle('d-none', !showExtra);
+                }
+            });
+
             const startPicker = flatpickr("#time_start", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
                 time_24hr: true,
                 minuteIncrement: 60,
                 minDate: "today",
-                onChange: function(selectedDates) {
-                    if (selectedDates.length > 0) {
-                        const startDate = selectedDates[0];
-                        const endPicker = document.querySelector("#time_end")._flatpickr;
-                        if (endPicker) {
-                            const endDate = endPicker.selectedDates[0] || new Date();
-                            endDate.setMinutes(startDate.getMinutes());
-                            endPicker.setDate(endDate, false);
-                        }
-                        const facilitySelect = document.getElementById('facility_id');
-                        const price = parseInt(facilitySelect.options[facilitySelect.selectedIndex].getAttribute(
-                            'data-price')) || 0;
-                        hitungTotalBayar(price);
-                    }
-                }
+                onChange: triggerRecalculate
             });
 
             const endPicker = flatpickr("#time_end", {
@@ -179,26 +196,24 @@
                 time_24hr: true,
                 minuteIncrement: 60,
                 minDate: "today",
-                onChange: function(selectedDates) {
-                    if (selectedDates.length > 0) {
-                        const endDate = selectedDates[0];
-                        const startPicker = document.querySelector("#time_start")._flatpickr;
-                        if (startPicker) {
-                            const startMinutes = startPicker.selectedDates[0] ?
-                                startPicker.selectedDates[0].getMinutes() :
-                                0;
-                            endDate.setMinutes(startMinutes);
-                            this.setDate(endDate, false);
-                        }
-                        const facilitySelect = document.getElementById('facility_id');
-                        const price = parseInt(facilitySelect.options[facilitySelect.selectedIndex].getAttribute(
-                            'data-price')) || 0;
-                        hitungTotalBayar(price);
-                    }
-                }
+                onChange: triggerRecalculate
             });
 
-            // Fungsi untuk hitung total bayar berdasarkan durasi jam * harga per jam
+            function triggerRecalculate() {
+                const tariffSelect = document.getElementById('tariff-select');
+                const selectedOption = tariffSelect.options[tariffSelect.selectedIndex];
+                const price = parseInt(selectedOption.getAttribute('data-price')) || 0;
+
+                document.getElementById('price-hour').textContent = price.toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                });
+                document.getElementById('selected_tariff_price').value = price;
+                document.getElementById('facility_tariff_id').value = tariffSelect.value;
+
+                hitungTotalBayar(price);
+            }
             function hitungTotalBayar(pricePerHour) {
                 const start = document.getElementById('time_start').value;
                 const end = document.getElementById('time_end').value;
@@ -209,17 +224,12 @@
 
                 const startDate = new Date(start);
                 const endDate = new Date(end);
-
                 if (endDate <= startDate) {
                     updateTotalDisplay(0);
                     return;
                 }
 
-                // Hitung durasi dalam jam (bulatkan ke atas)
-                let diffMs = endDate - startDate;
-                let diffHours = diffMs / (1000 * 60 * 60);
-                diffHours = Math.ceil(diffHours);
-
+                let diffHours = Math.ceil((endDate - startDate) / (1000 * 60 * 60));
                 const total = pricePerHour * diffHours;
                 updateTotalDisplay(total);
             }
@@ -228,12 +238,11 @@
                 document.getElementById('total-display').textContent = total.toLocaleString('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
-                    minimumFractionDigits: 0,
+                    minimumFractionDigits: 0
                 });
                 document.getElementById('total_payment_raw').value = total;
             }
 
-            // Trigger onchange sekali saat page load jika sudah ada pilihan lama
             window.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('facility_id').dispatchEvent(new Event('change'));
             });

@@ -39,7 +39,7 @@ class UserReservationController extends Controller
 
     public function create()
     {
-        $facilities = Facility::all();
+        $facilities = Facility::with('tariffs')->get();
         return view('user.reservations.create', compact('facilities'));
     }
 
@@ -48,10 +48,14 @@ class UserReservationController extends Controller
     {
         $validated = $request->validate([
             'facility_id' => 'required|exists:facilities,id',
+            'facility_tariff_id' => 'required|exists:facility_tariffs,id',
             'time_start'  => 'required|date_format:Y-m-d H:i|after_or_equal:now',
             'time_end'    => 'required|date_format:Y-m-d H:i|after:time_start',
             'purpose'     => 'required|string|max:255',
-            'image'       => 'required|mimes:jpg,jpeg,png|max:2048',
+            'image'       => 'required|mimes:jpg,jpeg,png',
+            'extra_image' => 'nullable|mimes:jpg,jpeg,png',
+            'selected_tariff_price' => 'required|numeric|min:0',
+            'total_payment' => 'required|numeric|min:0',
         ]);
 
         $conflict = Reservation::where('facility_id', $validated['facility_id'])
@@ -82,16 +86,27 @@ class UserReservationController extends Controller
             $validated['image'] = $filename;
         }
 
+        if ($request->hasFile('extra_image')) {
+            $extraImage = $request->file('extra_image');
+            $extraFilename = 'reservations/' . now()->format('Ymd_His') . '_extra_' . uniqid() . '.' . $extraImage->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('reservations', $extraImage, basename($extraFilename));
+            $validated['extra_image'] = $extraFilename;
+        }
+
+
         Reservation::create($validated);
 
         return redirect()->route('user.reservasi.index')
             ->with('success', 'Reservasi berhasil diajukan!');
     }
 
-
     public function show($id)
     {
-        $reservation = Reservation::where('user_id', Auth::id())->findOrFail($id);
-        return view('user.reservasi.show', compact('reservation'));
+        $reservation = Reservation::with(['facilityTariff', 'user', 'facility'])->where('user_id', Auth::id())->findOrFail($id);
+
+        $user = $reservation->user;
+        $facility = $reservation->facility;
+
+        return view('user.reservations.show', compact('reservation', 'user', 'facility'));
     }
 }
