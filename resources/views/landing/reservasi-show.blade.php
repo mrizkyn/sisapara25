@@ -3,6 +3,7 @@
 @section('main-content')
     <div class="container py-5" style="margin-top: 120px">
         <div class="row g-4 mb-5 align-items-stretch">
+            {{-- Bagian Detail Fasilitas (Tidak berubah) --}}
             <div class="col-md-5">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
                     <img src="{{ asset('storage/' . $facility->banner) }}" alt="{{ $facility->name }}" class="img-fluid w-100"
@@ -65,17 +66,17 @@
                         </div>
 
                         <div class="p-2">
-                            <a href="{{ route('reservasi') }}" class="btn btn-outline-secondary mb-4">
-                                <i class="bi bi-arrow-left"></i> Kembali ke Daftar
+                            <a href="{{ route('reservasi') }}" class="btn btn-outline-secondary mt-3 mb-4">
+                                <i class="bi bi-arrow-left"></i> Kembali
                             </a>
 
                             @auth
-                                <a href="{{ route('user.reservasi.create') }}" class="btn btn-primary mb-4">
-                                    Reservasi sekarang
+                                <a href="{{ route('user.reservasi.create') }}" class="btn btn-primary mt-3 mb-4">
+                                    Reservasi
                                 </a>
                             @else
-                                <a href="{{ route('login') }}" class="btn btn-primary mb-4">
-                                    Reservasi sekarang
+                                <a href="{{ route('login') }}" class="btn btn-primary mt-3 mb-4">
+                                    Reservasi
                                 </a>
                             @endauth
                         </div>
@@ -84,6 +85,7 @@
             </div>
         </div>
 
+        {{-- Bagian Daftar Tarif (Tidak berubah) --}}
         @if ($tariffGroups->count())
             <div class="mt-5">
                 <h4 class="fw-bold mb-4 text-dark">Daftar Tarif Sewa</h4>
@@ -119,20 +121,36 @@
             </div>
         @endif
 
+        @if ($facility->equipment->count())
+            <div class="mt-5">
+                <h4 class="fw-bold mb-4 text-dark">Daftar Sarana</h4>
+                <div class="row g-4">
+                    @foreach ($facility->equipment as $item)
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card border-0 shadow-sm rounded-4 h-100">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top rounded-top-4"
+                                    alt="{{ $item->name }}" style="height: 180px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold">{{ $item->name }}</h6>
+                                    <p class="card-text text-muted mb-1">
+                                        <strong>Brand:</strong> {{ $item->brand ?? '-' }}
+                                    </p>
+                                    <p class="card-text text-muted">
+                                        <strong>Jumlah:</strong> {{ $item->quantity }} unit
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
         @if (!empty($facility->images))
             <section class="pt-5 px-2">
-                <h4 class="fw-semibold mb-4 text-center text-dark">Galeri Fasilitas</h4>
+                <h4 class="fw-semibold mb-4 text-center text-dark">Galeri {{ $facility->name }}</h4>
                 <div class="swiper mySwiper px-2 pb-5">
                     <div class="swiper-wrapper">
-                        @foreach (json_decode($facility->images) as $image)
-                            <div class="swiper-slide">
-                                <img src="{{ asset('storage/' . $image) }}" alt="Gallery {{ $facility->name }}"
-                                    class="img-fluid rounded shadow-sm"
-                                    style="height: 280px; object-fit: cover; width: 100%; transition: transform 0.3s ease;"
-                                    onmouseover="this.style.transform='scale(1.03)';"
-                                    onmouseout="this.style.transform='scale(1)';">
-                            </div>
-                        @endforeach
                         @foreach (json_decode($facility->images) as $image)
                             <div class="swiper-slide">
                                 <img src="{{ asset('storage/' . $image) }}" alt="Gallery {{ $facility->name }}"

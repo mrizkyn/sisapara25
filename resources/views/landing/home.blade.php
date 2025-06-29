@@ -38,10 +38,9 @@
         }
 
         .swiper-slide {
-            background: #fff;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            background: transparent;
+            box-shadow: none;
+            height: auto;
         }
 
         .artikel-card img {
@@ -61,6 +60,54 @@
         .swiper-button-next,
         .swiper-button-prev {
             color: #000;
+        }
+
+        .article-card-custom {
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .article-card-custom:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .article-card-custom .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-card-custom .card-title {
+            font-weight: 600;
+            min-height: 48px;
+        }
+
+        .article-card-custom .card-body {
+            padding: 1.25rem;
+        }
+
+        .swiper-wrapper {
+            align-items: stretch;
+        }
+
+        .swiper-slide {
+            height: auto;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #016974;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+
+            .article-card-custom .card-title {
+                font-size: 1.1rem;
+                min-height: 44px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -83,9 +130,9 @@
             </p>
             <div
                 class="d-flex flex-wrap justify-content-start justify-content-md-start justify-content-center align-items-center gap-3 mb-3">
-                <img src="{{ asset('img/logo1.png') }}" alt="Logo 1" style="max-height: 60px; width: auto;">
-                <img src="{{ asset('img/logo2.png') }}" alt="Logo 2" style="max-height: 60px; width: auto;">
-                <img src="{{ asset('img/logo3.png') }}" alt="Logo 3" style="max-height: 60px; width: auto;">
+                <img src="{{ asset('img/logo1.png') }}" alt="Logo 1" style="max-height: 120px; width: auto;">
+                <img src="{{ asset('img/logo2.png') }}" alt="Logo 2" style="max-height: 120px; width: auto;">
+                <img src="{{ asset('img/logo3.png') }}" alt="Logo 3" style="max-height: 120px; width: auto;">
             </div>
             <div>
                 <button class="hero-btn"><i class="animation"></i>selengkapnya<i class="animation"></i>
@@ -183,7 +230,7 @@
                 </div>
                 <div class="col-md-8 order-md-1">
                     <div class="mb-4">
-                        <small class="text-muted">// Prasarana</small>
+                        {{-- <small class="text-muted">// Prasarana</small> --}}
                         <h2 class="fw-bold">Fasilitas Olahraga Lengkap<br><span style="color: #016974">Dengan
                                 Infrastruktur Modern</span></h2>
                         <p>Kami menyediakan berbagai prasarana seperti lapangan tenis, kolam renang, dan
@@ -207,7 +254,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="text-start mb-4">
-                        <small class="text-muted">// Sarana</small>
+                        {{-- <small class="text-muted">// Sarana</small> --}}
                         <h2 class="fw-bold">Peralatan & Penunjang Olahraga<br><span style="color: #016974">Yang Lengkap
                                 dan Berkualitas</span></h2>
                         <p class="w-75">Selain infrastruktur, kami juga menyediakan sarana olahraga seperti bola, net,
@@ -220,33 +267,57 @@
         </div>
     </section>
 
-    <section class="container my-2">
-        <div class="container my-5">
-            <div class="text-start mb-4">
-                <small class="text-muted">// Artikel Terbaru</small>
-                <h2 class="fw-bold">Baca Wawasan & Info Terbaru<br><span style="color: #016974">dari Kami</span></h2>
-                <p class="w-75">Dapatkan informasi terkini seputar kegiatan, tips, dan wawasan menarik melalui artikel
-                    yang kami sajikan.</p>
-            </div>
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper p-5">
-                    @foreach ($articles as $article)
-                        <div class="swiper-slide">
-                            <div class="artikel-card">
-                                <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}">
-                                <div class="card-body">
-                                    <h5>{{ $article->title }}</h5>
-                                    <p>{{ Str::limit(strip_tags($article->content), 100) }}</p>
-                                    <a href="{{ route('article.show', $article->slug) }}"
-                                        class="btn btn-sm btn-primary mt-2">Baca Selengkapnya</a>
+    <section id="artikel" class="container my-5">
+        <div class="text-center mb-5">
+            {{-- <small class="text-muted">// Artikel Terbaru</small> --}}
+            <h2 class="fw-bold">Baca Wawasan & Info Terbaru<br><span style="color: #016974">dari Kami</span></h2>
+            <p class="w-100 w-md-75 mx-auto text-muted">
+                Dapatkan informasi terkini seputar kegiatan, tips, dan wawasan menarik melalui artikel
+                yang kami sajikan.
+            </p>
+        </div>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper py-4">
+
+                @forelse ($articles as $article)
+                    <div class="swiper-slide">
+                        <a href="{{ route('article.show', $article->slug) }}" class="text-decoration-none text-dark">
+                            <div class="card h-100 shadow-sm border-0 article-card-custom">
+                                <img src="{{ asset('storage/' . $article->image) }}" class="card-img-top"
+                                    alt="{{ $article->title }}">
+
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ $article->title }}</h5>
+                                    <small class="text-muted mb-2">
+                                        Dipublikasikan pada
+                                        {{ $article->created_at ? $article->created_at->translatedFormat('l, d F Y') : '' }}
+                                    </small>
+                                    <p class="card-text">
+                                        {{ Str::limit(strip_tags($article->content), 100) }}
+                                    </p>
+
+                                    <div class="mt-auto">
+                                        <span class="btn btn-article mt-2" style="color: #016974">Baca Selengkapnya</span>
+                                    </div>
                                 </div>
                             </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="swiper-slide">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body text-center">
+                                <p>Belum ada artikel yang dipublikasikan.</p>
+                            </div>
                         </div>
-                    @endforeach
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                    </div>
+                @endforelse
+
+
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </section>
 @endsection

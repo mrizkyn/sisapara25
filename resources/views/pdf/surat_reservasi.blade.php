@@ -80,7 +80,7 @@
     <div class="header">
         <h1>Surat Pengajuan Permohonan Penggunaan Sarana/Prasarana</h1>
         <p>Nomor: {{ $reservation->id }}</p>
-        <p>Dispora bandung - Tahun {{ date('Y') }}</p>
+        <p>Dispora Kota Bandung - Tahun {{ date('Y') }}</p>
     </div>
 
     <!-- Content -->
@@ -93,12 +93,8 @@
         <p>Nama Pengaju: <strong>{{ $reservation->user->name }}</strong></p>
 
         <p class="label">Data Admin yang Mengajukan:</p>
-<<<<<<< HEAD
 
         <p>Nama Admin: <strong>{{ $reservation->approvedBy->id ?? '-' }}</strong></p>
-=======
-        <p>Nama Admin: <strong>{{ Auth::user()->name }}</strong></p>
->>>>>>> refs/remotes/origin/master
 
         <p class="label">Data Kegiatan:</p>
 
@@ -118,12 +114,12 @@
             </tr>
         </table>
 
-        <p class="label">Keterangan Tambahan:</p>
-        <p>{{ $reservation->additional_info ?? 'Tidak ada' }}</p>
+        {{-- <p class="label">Keterangan Tambahan:</p>
+        <p>{{ $reservation->additional_info ?? 'Tidak ada' }}</p> --}}
 
         <p>Dengan ini kami mengajukan permohonan penggunaan fasilitas tersebut untuk kegiatan di atas kepada
-            Disporapar
-            Kota [Nama Kota], dan mohon untuk mendapatkan persetujuan.</p>
+            Dispora
+            Kota Bandung, dan mohon untuk mendapatkan persetujuan.</p>
 
         <p>Demikian surat permohonan ini kami buat dengan sebenar-benarnya untuk digunakan sebagaimana mestinya.</p>
     </div>
@@ -131,7 +127,7 @@
     <!-- Footer -->
     <div class="footer">
         <p>Hormat kami,</p>
-        <p>Admin Disporapar Kota Bandung</p>
+        <p>{{ }}</p>
     </div>
 
 

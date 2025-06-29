@@ -86,7 +86,7 @@
                         class="table table-bordered table-striped table-hover align-middle text-center w-100">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>No</th>
                                 <th>Fasilitas</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>
@@ -118,15 +118,45 @@
                     },
                     {
                         data: 'time_start',
-                        name: 'time_start'
+                        name: 'time_start',
+                        render: function(data) {
+                            if (!data) return '-';
+                            const date = new Date(data);
+                            return date.toLocaleString('id-ID', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            });
+                        }
                     },
                     {
                         data: 'time_end',
-                        name: 'time_end'
+                        name: 'time_end',
+                        render: function(data) {
+                            if (!data) return '-';
+                            const date = new Date(data);
+                            return date.toLocaleString('id-ID', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            });
+                        }
                     },
                     {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
+                        render: function(data) {
+                            return {
+                                'pending': '<span class="badge bg-warning">Pending</span>',
+                                'verified': '<span class="badge bg-info">Verified</span>',
+                                'approved': '<span class="badge bg-success">Approved</span>',
+                                'rejected': '<span class="badge bg-danger">Rejected</span>',
+                            } [data] || '-';
+                        }
                     },
                     {
                         data: 'action',

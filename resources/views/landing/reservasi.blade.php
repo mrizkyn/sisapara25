@@ -258,7 +258,7 @@
     <section>
         <div class="container">
             <div class="text-start mt-5">
-                <small class="text-muted">// Reservasi Sarana dan Prasarana</small>
+                {{-- <small class="text-muted">// Reservasi Sarana dan Prasarana</small> --}}
                 <h2 class="fw-bold">Eksplorasi Fasilitas Kami <br><span style="color: teal">Lapangan, Kolam, dan
                         Lainnya</span></h2>
                 <p class="w-75">Temukan fasilitas olahraga kami yang lengkap untuk mendukung kegiatan rekreasi dan
@@ -272,9 +272,9 @@
                         <a class="nav-link active" id="prasarana-tab" data-bs-toggle="pill" href="#prasarana"
                             role="tab">Prasarana</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link" id="sarana-tab" data-bs-toggle="pill" href="#sarana" role="tab">Sarana</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             <div class="card-body tab-content container" id="myTabContent">
@@ -305,7 +305,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="sarana" role="tabpanel">
+                {{-- <div class="tab-pane fade" id="sarana" role="tabpanel">
                     <div id="facilities-container">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
                             @foreach ($equipments as $equipment)
@@ -327,7 +327,7 @@
                             @endforeach
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>

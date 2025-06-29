@@ -97,14 +97,14 @@ class LandingPageController extends Controller
         return response()->json($events);
     }
 
-    public function reservasiShow($id)
-    {
-        $facility = Facility::with('tariffs')->findOrFail($id);
+   public function reservasiShow($id)
+{
+    $facility = Facility::with(['tariffs', 'equipment'])->findOrFail($id);
 
-        $tariffGroups = $facility->tariffs->groupBy('rental_type');
+    $tariffGroups = $facility->tariffs->groupBy('rental_type');
 
-        return view('landing.reservasi-show', compact('facility', 'tariffGroups'));
-    }
+    return view('landing.reservasi-show', compact('facility', 'tariffGroups'));
+}
 
     public function faq()
     {

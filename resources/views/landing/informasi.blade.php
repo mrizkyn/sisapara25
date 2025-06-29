@@ -47,12 +47,6 @@
             border-radius: 2rem;
         }
 
-        .card-img-top {
-            max-height: 400px;
-            object-fit: contain;
-            border-bottom: 2px solid #f1f1f1;
-        }
-
         p.small {
             color: #f1f1f1 !important;
         }
@@ -162,10 +156,9 @@
         }
 
         .swiper-slide {
-            background: #fff;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            background: transparent;
+            box-shadow: none;
+            height: auto;
         }
 
         .sarana-card img {
@@ -185,6 +178,73 @@
         .swiper-button-next,
         .swiper-button-prev {
             color: #000;
+        }
+
+        .article-section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            background-color: #f8f9fa;
+        }
+
+        .featured-article-card {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .featured-article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+        }
+
+        .featured-article-card .card-img-top {
+            max-height: 450px;
+            object-fit: cover;
+        }
+
+        .featured-article-card .card-body {
+            padding: 2rem;
+        }
+
+        .article-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .article-sidebar {
+            background-color: #016974;
+            padding: 2rem;
+            border-radius: 15px;
+            position: static;
+        }
+
+
+        .article-sidebar .list-group-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 0.75rem !important;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .article-sidebar .list-group-item:hover {
+            background-color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        .article-sidebar .list-group-item a {
+            text-decoration: none;
+            color: #212529;
+            font-weight: 600;
+        }
+
+        .article-sidebar .list-group-item small {
+            font-weight: 400;
+            display: block;
+            color: #6c757d !important;
         }
 
         @media (max-width: 768px) {
@@ -246,48 +306,63 @@
         </div>
     </section>
 
-    <section class="py-3">
+    <section class="article-section">
         <div class="container">
-            <div class="row mb-4">
+            <div class="row mb-5">
                 <div class="col-12 text-start">
-                    <small class="text-muted">// Artikel Terbaru</small>
+                    <small class="text-muted">// ARTIKEL TERBARU</small>
                     <h2 class="fw-bold">Baca Wawasan & Info Terbaru<br><span style="color: #016974">dari Kami</span></h2>
-                    <p class="w-75">Dapatkan informasi terkini seputar kegiatan, tips, dan wawasan menarik melalui artikel
+                    <p class="w-75 text-muted">Dapatkan informasi terkini seputar kegiatan, tips, dan wawasan menarik
+                        melalui artikel
                         yang kami sajikan.</p>
                 </div>
             </div>
 
-            <div class="row text-start">
-                <div class="col-md-8 mb-4">
+            <div class="row">
+                {{-- Artikel Utama --}}
+                <div class="col-lg-8 mb-4 mb-lg-0">
                     @if ($latest)
-                        @if ($latest->image)
-                            <img src="{{ asset('storage/' . $latest->image) }}" class="card-img-top" alt="Artikel Terbaru">
-                        @endif
-                        <div class="card-body">
-                            <h3 class="card-title text-primary">{{ $latest->title }}</h3>
-                            <p class="card-text">{!! Str::limit($latest->content, 300) !!}</p>
-                            <p class="text-muted">Ditulis oleh: {{ $latest->user->name }}</p>
-                            <a href="{{ route('article.show', $latest->slug) }}" class="btn btn-outline-primary">Baca
-                                Selengkapnya</a>
+                        <div class="card shadow-sm featured-article-card">
+                            @if ($latest->image)
+                                <img src="{{ asset('storage/' . $latest->image) }}" class="card-img-top"
+                                    alt="Gambar Artikel {{ $latest->title }}">
+                            @endif
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold mb-3" style="color: #016974;">{{ $latest->title }}</h3>
+                                <div class="article-meta">
+                                    <span>Ditulis oleh: <strong>{{ $latest->user->name }}</strong></span> |
+                                    <span>{{ $latest->created_at ? $latest->created_at->translatedFormat('l, d F Y') : '' }}</span>
+                                </div>
+                                <p class="card-text text-muted">{!! Str::limit(strip_tags($latest->content), 280) !!}</p>
+                                <a href="{{ route('article.show', $latest->slug) }}" class="btn btn-outline-primary mt-3">
+                                    Baca Selengkapnya
+                                </a>
+                            </div>
                         </div>
                     @else
-                        <div class="alert alert-warning mt-3">Belum ada artikel.</div>
+                        <div class="alert alert-warning">Belum ada artikel untuk ditampilkan.</div>
                     @endif
                 </div>
 
-                <div class="col-md-4 p-4 rounded-1" style="background-color: #016974">
-                    <h5 class="text-white mb-3">Artikel Sebelumnya</h5>
-                    <ul class="list-group">
-                        @foreach ($others as $article)
-                            <li class="list-group-item mb-2">
-                                <a href="{{ route('article.show', $article->slug) }}"
-                                    class="text-decoration-none text-dark">
-                                    {{ $article->title }} <br>
-                                    <small class="text-muted">oleh {{ $article->user->name }}</small>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                {{-- Sidebar Artikel Lainnya --}}
+                <div class="col-lg-4">
+                    <div class="article-sidebar">
+                        <h5 class="text-white fw-bold mb-4">Artikel Lainnya</h5>
+                        @if ($others->count() > 0)
+                            <ul class="list-group list-group-flush">
+                                @foreach ($others as $article)
+                                    <li class="list-group-item">
+                                        <a href="{{ route('article.show', $article->slug) }}">
+                                            {{ $article->title }}
+                                            <small>oleh {{ $article->user->name }}</small>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p class="text-white-50">Tidak ada artikel lainnya.</p>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,7 +393,7 @@
     <div class="container p-4 pt-5">
         <div class="row align-items-center">
             <div class="col-lg-4 mb-4 mb-lg-0">
-                <small class="text-muted">//Sarana & Fasilitas</small>
+                {{-- <small class="text-muted">//Sarana & Fasilitas</small> --}}
                 <h2 class="fw-bold">JELAJAHI<br><span style="color: #016974">SARANA KAMI</span></h2>
                 <p class="text-muted">Berbagai sarana olahraga tersedia untuk mendukung aktivitas dan pengembangan bakat
                     Anda.</p>
@@ -342,11 +417,11 @@
     <section class="container my-2 ">
         <div class="container my-5">
             <div class="text-start mb-4">
-                <small class="text-muted">// Sarana dan Prasarana</small>
+                {{-- <small class="text-muted">// Sarana dan Prasarana</small> --}}
                 <h2 class="fw-bold">Kenali Fasilitas Kami <br><span style="color: #016974">Lapangan, Kolam, dan
-                        Lainnya</span></h2>
+                    </span> <a href="{{ url('/reservasi') }}" style="color: #016974">Lainnya</a> </h2>
                 <p class="w-75">Kami menyediakan berbagai fasilitas olahraga yang mendukung kegiatan rekreasi hingga
-                    pembinaan prestasi...</p>
+                    pembinaan prestasi. <a href="{{ url('/reservasi') }}" style="color: #016974">(Selengkapnya)</a></p>
             </div>
 
             <div class="swiper mySwiper">

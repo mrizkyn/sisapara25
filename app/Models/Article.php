@@ -15,6 +15,8 @@ class Article extends Model
         'user_id'
     ];
 
+    public $timestamps = true;
+
     protected static function booted()
     {
         static::creating(function ($article) {

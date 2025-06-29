@@ -192,7 +192,7 @@
 @section('main')
     <div class="container mt-5">
         <h2 class="fw-bold mb-3">Halo, {{ Auth::user()->name }} 👋</h2>
-        <p class="text-muted">Berikut ringkasan aktivitas reservasi di fasilitas yang Anda kelola.</p>
+        <p class="text-muted">Berikut ringkasan aktivitas reservasi.</p>
         <div class="row my-4">
             <div class="col-md-4 col-12 mb-3">
                 <div class="status-box">
@@ -219,7 +219,7 @@
             </div>
             <div class="col-md-6 mb-4">
                 <div class="dashboard-card h-100">
-                    <h5 class="fw-bold mb-3 text-center">Reservasi Terbaru di Fasilitas Anda</h5>
+                    <h5 class="fw-bold mb-3 text-center">Reservasi Terbaru</h5>
                     <div class="table-responsive">
                         <table id="reservasiTable"
                             class="table table-bordered table-striped table-hover align-middle text-center w-100">
