@@ -3,7 +3,7 @@
 @section('main-content')
     <div class="auth Patterns">
 
-        <div class="auth-container">
+        <div class="auth-container" style="margin-bottom: 200px; margin-top: 100px;">
             <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
             <div class="auth-form">
                 <p class="auth-title">Create Account</p>
