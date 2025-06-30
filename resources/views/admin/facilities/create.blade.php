@@ -116,7 +116,7 @@
                         <div id="tariff-container">
                             <div class="row g-2 tariff-item mb-2">
                                 <div class="col-md-2">
-                                    <select name="tariffs[0][rental_type]" class="form-select" required>
+                                    <select name="tariffs[0][rental_type]" class="form-control" required>
                                         <option value="">Pilih Kategori</option>
                                         <option value="Umum">Umum</option>
                                         <option value="Sosial">Sosial</option>
@@ -124,37 +124,33 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <select name="tariffs[0][day_type]" class="form-select" required>
+                                    <select name="tariffs[0][day_type]" class="form-control" required>
                                         <option value="">Hari</option>
                                         <option value="Weekday">Weekday</option>
                                         <option value="Weekend">Weekend</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <select name="tariffs[0][time_type]" class="form-select" required>
+                                    <select name="tariffs[0][time_type]" class="form-control" required>
                                         <option value="">Sesi</option>
                                         <option value="Siang">Siang</option>
                                         <option value="Malam">Malam</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control price-formatter" placeholder="Harga (Rp)"
-                                        required>
-                                    <input type="hidden" name="tariffs[0][price]" class="price-real-value"
-                                        placeholder="Contoh: 500000">
+                                    <input type="number" name="tariffs[0][price]" class="form-control"
+                                        placeholder="Harga (Rp)" required>
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-danger remove-tariff w-100">Hapus</button>
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-primary mt-2" id="add-tariff">+ Tambah
-                            Tarif</button>
+                        <button type="button" class="btn btn-outline-primary" id="add-tariff">+ Tambah Tarif</button>
                     </div>
 
-                    <div class="d-flex justify-content-end">
-                        <a href="{{ route('admin.facilities.index') }}" class="btn btn-secondary me-2">Batal</a>
-                        <button type="submit" class="btn btn-success">Simpan Fasilitas</button>
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-success ms-auto">Simpan</button>
                     </div>
                 </form>
 

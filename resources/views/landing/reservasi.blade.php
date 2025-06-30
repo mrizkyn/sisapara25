@@ -277,7 +277,7 @@
                     </li> --}}
                 </ul>
             </div>
-            <div class="card-body tab-content container" id="myTabContent">
+            <div class="card-body tab-content container" id="myTabContent" style="margin-bottom: 300px;">
                 <div class="tab-pane fade show active" id="prasarana" role="tabpanel">
                     <div id="equipments-container">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">

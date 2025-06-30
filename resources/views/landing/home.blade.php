@@ -277,7 +277,7 @@
             </p>
         </div>
 
-        <div class="swiper mySwiper">
+        <div class="swiper mySwiper" style="margin-bottom: 300px;">
             <div class="swiper-wrapper py-4">
 
                 @forelse ($articles as $article)

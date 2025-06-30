@@ -3,7 +3,7 @@
 @section('main-content')
     <div class="auth Patterns">
 
-        <div class="auth-container">
+        <div class="auth-container" style="margin-bottom: 200px; margin-top: 100px;">
             <div class="auth-form">
                 <h1 class="auth-title">Log in</h1>
                 <form class="auth-input-form" method="POST" action="{{ route('login') }}">

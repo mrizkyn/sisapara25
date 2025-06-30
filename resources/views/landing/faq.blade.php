@@ -55,7 +55,7 @@
 @section('main-content')
     <div class="faq-container">
         <h2 class="section-title">❓ Frequently Asked Questions</h2>
-        <div class="accordion" id="faqAccordion"></div>
+        <div class="accordion" id="faqAccordion" style="margin-bottom: 300px;"></div>
     </div>
 @endsection
 
