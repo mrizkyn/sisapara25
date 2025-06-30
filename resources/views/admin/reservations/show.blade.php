@@ -12,14 +12,17 @@
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold">Nama Pengaju/Pengguna</label>
                             <div class="col-sm-8">
-                                <div class="form-control-plaintext">{{ $user->name }}</div>
+                                {{-- PERBAIKAN: Akses melalui relasi reservation --}}
+                                <div class="form-control-plaintext">
+                                    {{ $reservation->user->name ?? 'Pengguna tidak ditemukan' }}</div>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold">Fasilitas</label>
                             <div class="col-sm-8">
-                                <div class="form-control-plaintext">{{ $facility->name ?? '-' }}</div>
+                                {{-- PERBAIKAN: Akses melalui relasi reservation --}}
+                                <div class="form-control-plaintext">{{ $reservation->facility->name ?? '-' }}</div>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -58,7 +61,8 @@
                             <label class="col-sm-4 col-form-label fw-semibold">Total yang harus di bayar</label>
                             <div class="col-sm-8">
                                 <div class="form-control-plaintext">
-                                    Rp{{ $reservation->total_payment }}
+                                    {{-- PENYEMPURNAAN: Menambahkan format angka agar mudah dibaca --}}
+                                    Rp{{ number_format($reservation->total_payment, 0, ',', '.') }}
                                 </div>
                             </div>
                         </div>
@@ -79,15 +83,17 @@
                             <label class="col-sm-4 col-form-label fw-semibold">Bukti Tambahan</label>
                             <div class="col-sm-8">
                                 @if ($reservation->extra_image)
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#extraImageModal">
                                         <img src="{{ asset('storage/' . $reservation->extra_image) }}" class="img-fluid"
-                                            alt="Bukti Transaksi" style="height: 300px; object-fit: contain;">
+                                            alt="Bukti Tambahan" style="height: 300px; object-fit: contain;">
                                     </a>
                                 @else
                                     <span class="text-muted fst-italic">-</span>
                                 @endif
                             </div>
                         </div>
+
+                        {{-- Modal untuk Bukti Transaksi --}}
                         <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-lg">
@@ -104,6 +110,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Modal untuk Bukti Tambahan (Tambahan) --}}
+                        <div class="modal fade" id="extraImageModal" tabindex="-1" aria-labelledby="extraImageModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="extraImageModalLabel">Bukti Tambahan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ asset('storage/' . $reservation->extra_image) }}" class="img-fluid"
+                                            alt="Bukti Tambahan">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-4 row">
                             <label class="col-sm-4 col-form-label fw-semibold">Status Saat Ini</label>
                             <div class="col-sm-8">
@@ -121,9 +146,9 @@
                         </div>
                         @if ($reservation->status === 'pending')
                             <div class="float-end">
-
                                 <div class="d-flex gap-2">
-                                    <form action="{{ route('admin.reservasi.verify', $reservation->id) }}" method="POST">
+                                    <form action="{{ route('admin.reservasi.verify', $reservation->id) }}"
+                                        method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-success">
                                             <i class="bi bi-check-circle"></i> Setujui

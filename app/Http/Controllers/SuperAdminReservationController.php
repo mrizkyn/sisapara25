@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class SuperAdminReservationController extends Controller
@@ -85,4 +87,67 @@ class SuperAdminReservationController extends Controller
         $reservation->save();
         return redirect()->route('superadmin.reservasi.index')->with('error', 'Reservasi telah ditolak oleh superadmin.');
     }
+
+
+    public function create()
+    {
+        $facilities = \App\Models\Facility::with('tariffs')->get();
+        return view('superadmin.reservations.create', compact('facilities'));
+    }
+
+    public function storeReservation(Request $request)
+{
+    $validated = $request->validate([
+        'facility_id' => 'required|exists:facilities,id',
+        'time_start'  => 'required|date_format:Y-m-d H:i|after_or_equal:now',
+        'time_end'    => 'required|date_format:Y-m-d H:i|after:time_start',
+        'purpose'     => 'required|string|max:255',
+    ]);
+
+    $conflict = Reservation::where('facility_id', $validated['facility_id'])
+        ->where('status', 'approved')
+        ->where(function ($query) use ($validated) {
+            $query->whereBetween('time_start', [$validated['time_start'], $validated['time_end']])
+                ->orWhereBetween('time_end', [$validated['time_start'], $validated['time_end']])
+                ->orWhere(function ($query) use ($validated) {
+                    $query->where('time_start', '<=', $validated['time_start'])
+                        ->where('time_end', '>=', $validated['time_end']);
+                });
+        })
+        ->exists();
+
+    if ($conflict) {
+        return back()
+            ->withErrors(['time_start' => 'Fasilitas ini sudah dipesan pada waktu tersebut. Silakan pilih waktu lain.'])
+            ->withInput();
+    }
+
+    $validated['user_id'] = Auth::id();
+    $validated['status'] = 'approved';
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $filename = 'reservations/' . now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        Storage::disk('public')->putFileAs('reservations', $image, basename($filename));
+        $validated['image'] = $filename;
+    } else {
+        $validated['image'] = '';
+    }
+
+    if ($request->hasFile('extra_image')) {
+        $extraImage = $request->file('extra_image');
+        $extraFilename = 'reservations/' . now()->format('Ymd_His') . '_extra_' . uniqid() . '.' . $extraImage->getClientOriginalExtension();
+        Storage::disk('public')->putFileAs('reservations', $extraImage, basename($extraFilename));
+        $validated['extra_image'] = $extraFilename;
+    } else {
+        $validated['extra_image'] = '';
+    }
+
+    Reservation::create($validated);
+
+    return redirect()->route('superadmin.reservasi.index')
+        ->with('success', 'Reservasi berhasil disimpan!');
+}
+
+
 }

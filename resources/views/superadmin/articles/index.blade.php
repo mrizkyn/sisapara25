@@ -7,8 +7,8 @@
             <div class="card-header text-white fw-semibold ">
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="text-black">Data Artikel</span>
-                    <a href="{{ route('superadmin.articles.create') }}" class="btn btn-sm btn-success shadow-sm" <i
-                        class="bi bi-plus-circle"></i> Tambah
+                    <a href="{{ route('superadmin.articles.create') }}" class="btn btn-sm btn-success shadow-sm">
+                        <i class="bi bi-plus-circle"></i> Tambah
                     </a>
                 </div>
             </div>
