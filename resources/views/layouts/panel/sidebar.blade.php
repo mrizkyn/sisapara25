@@ -32,12 +32,18 @@
                     <a href="{{ route('superadmin.reservasi.index') }}" class="nav_link">
                         <span class="navlink_icon">
                             <i class="bx bx-calendar"></i>
-
                         </span>
                         <span class="navlink">Reservasi</span>
                     </a>
                 </li>
-
+                <li class="item">
+                    <a href="{{ route('superadmin.reservasi.report') }}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-file"></i>
+                        </span>
+                        <span class="navlink">Laporan</span>
+                    </a>
+                </li>
                 {{-- <li class="item">
                     <div href="#" class="nav_link submenu_item">
                         <span class="navlink_icon">
@@ -97,6 +103,14 @@
                             <i class="bx bx-calendar"></i>
                         </span>
                         <span class="navlink">Reservasi</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{ route('admin.reservasi.report') }}" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-file"></i>
+                        </span>
+                        <span class="navlink">Laporan</span>
                     </a>
                 </li>
             </ul>
