@@ -250,9 +250,9 @@ class SuperAdminReservationController extends Controller
             'Mulai',
             'Selesai',
             'Total Jam',
-            'Rental Type',
-            'Day Type',
-            'Time Type',
+            'Jenis Sewa',
+            'Hari',
+            'Sesi',
             'Harga / Jam',
             'Total Bayar'
         ];
@@ -306,7 +306,7 @@ class SuperAdminReservationController extends Controller
 
         $sheet->freezePane('A' . ($startRow + 1));
 
-        $filename = 'reservasi_superadmin_' . now()->format('Ymd_His') . '.xlsx';
+        $filename = 'Laporan_reservasi ' . now()->format('d-m-Y') . '.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), $filename);
         $writer = new Xlsx($spreadsheet);
         $writer->save($temp_file);
