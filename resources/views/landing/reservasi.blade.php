@@ -225,7 +225,7 @@
         <div class="container">
             <div class="row align-items-center min-vh-100">
                 <div class="col-lg-6 text-left-block ">
-                    <div class="subtext">Equip Yourself for the City</div>
+                    <div class="subtext">Reserve with Ease, Use with Confidence</div>
                     <div class="brand-title">
                         Reservasi with<br>
                         SISAPARA

@@ -124,9 +124,9 @@
         <div class="hero-text">
             <h1>SISAPARA</h1>
             <p> Sistem Informasi Sarana dan Prasarana Dispora (SISAPARA) adalah platform digital yang dirancang
-                untuk mempermudah pengelolaan fasilitas dan inventaris sarana dan prasarana olahraga Dispora kota Bandung
+                untuk mempermudah pengelolaan fasilitas dan reservasi sarana dan prasarana olahraga Dispora kota Bandung
                 secara efisien dan transparan.
-                Mulai dari peminjaman alat olahraga, gedung olahraga, hingga pelaporan kerusakan.
+                Mulai dari peminjaman alat olahraga, gedung olahraga, dll.
             </p>
             <div
                 class="d-flex flex-wrap justify-content-start justify-content-md-start justify-content-center align-items-center gap-3 mb-3">
@@ -135,8 +135,9 @@
                 <img src="{{ asset('img/logo3.png') }}" alt="Logo 3" style="max-height: 120px; width: auto;">
             </div>
             <div>
-                <button class="hero-btn"><i class="animation"></i>selengkapnya<i class="animation"></i>
-                </button>
+                <a href="#main-content" class="hero-btn scroll-link">
+                    <i class="animation"></i>selengkapnya<i class="animation"></i>
+                </a>
             </div>
         </div>
         <div class="image-columns-wrapper">
@@ -184,7 +185,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5 d-flex flex-column justify-content-between" style="height: 63vh;">
+            <div class="col-md-5 d-flex flex-column justify-content-between" style="height: 63vh;" id="main-content">
                 <div>
                     <small class="text-muted">Tentang SISAPARA</small>
                     <h3 class="mt-2" id="main-heading">

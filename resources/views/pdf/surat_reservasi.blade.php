@@ -127,7 +127,7 @@
     <!-- Footer -->
     <div class="footer">
         <p>Hormat kami,</p>
-        <p>{{ }}</p>
+        <p></p>
     </div>
 
 

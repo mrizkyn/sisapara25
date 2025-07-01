@@ -89,6 +89,8 @@
         @if ($tariffGroups->count())
             <div class="mt-5">
                 <h4 class="fw-bold mb-4 text-dark">Daftar Tarif Sewa</h4>
+                <p style="color: red">* Harga Sesuai dengan Peraturan Pemerintah Daerah Kota Bandung Nomor 1 Tahun 2024
+                    Tentang Pajak Daerah dan Retribusi Daerah</p>
                 <div class="row g-3">
                     @foreach ($tariffGroups as $rentalType => $tariffs)
                         <div class="col-md-6 col-lg-4">

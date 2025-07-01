@@ -310,7 +310,7 @@
         <div class="container">
             <div class="row mb-5">
                 <div class="col-12 text-start">
-                    <small class="text-muted">// ARTIKEL TERBARU</small>
+                    {{-- <small class="text-muted">// ARTIKEL TERBARU</small> --}}
                     <h2 class="fw-bold">Baca Wawasan & Info Terbaru<br><span style="color: #016974">dari Kami</span></h2>
                     <p class="w-75 text-muted">Dapatkan informasi terkini seputar kegiatan, tips, dan wawasan menarik
                         melalui artikel
